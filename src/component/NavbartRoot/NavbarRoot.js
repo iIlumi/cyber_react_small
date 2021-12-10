@@ -2,11 +2,8 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import './NavbarRoot.css';
 
-
-
 export default class NavbarRoot extends Component {
   render() {
-      
     const activeLinkStyle = {
       fontWeight: 'bold',
     };
@@ -30,7 +27,12 @@ export default class NavbarRoot extends Component {
         <div className="collapse navbar-collapse" id="navRootId">
           <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
             <li className="nav-item active">
-              <NavLink activeClassName='activeNavItem' activeStyle={activeLinkStyle} className="nav-link" to="/home">
+              <NavLink
+                activeClassName="activeNavItem"
+                activeStyle={activeLinkStyle}
+                className="nav-link"
+                to="/home"
+              >
                 Home
               </NavLink>
             </li>
@@ -46,15 +48,31 @@ export default class NavbarRoot extends Component {
               </button>
 
               <div className="dropdown-menu" aria-labelledby="dropdownId">
-                <NavLink activeClassName='activeNavItem' activeStyle={activeLinkStyle} className="dropdown-item" to="/databinding">
+                <NavLink
+                  activeClassName="activeNavItem"
+                  activeStyle={activeLinkStyle}
+                  className="dropdown-item"
+                  to="/databinding"
+                >
                   Data Binding
                 </NavLink>
-                <NavLink activeClassName='activeNavItem' activeStyle={activeLinkStyle} className="dropdown-item" to="/handleevent">
+                <NavLink
+                  activeClassName="activeNavItem"
+                  activeStyle={activeLinkStyle}
+                  className="dropdown-item"
+                  to="/handleevent"
+                >
                   Handle Event
                 </NavLink>
-                <NavLink activeClassName='activeNavItem' activeStyle={activeLinkStyle} className="dropdown-item" to="/chonxebasic">
+                <NavLink
+                  activeClassName="activeNavItem"
+                  activeStyle={activeLinkStyle}
+                  className="dropdown-item"
+                  to="/chonxebasic"
+                >
                   Chon xe basic
                 </NavLink>
+                {/* demo */}
               </div>
             </li>
           </ul>

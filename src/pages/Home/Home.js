@@ -14,6 +14,7 @@ export default class Home extends Component {
         <NavLink className="d-block" to="/chonxebasic">
           Chon xe basic
         </NavLink>
+        {/* demo */}
       </div>
     );
   }
