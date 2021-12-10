@@ -52,6 +52,9 @@ export default class NavbarRoot extends Component {
                 <NavLink activeClassName='activeNavItem' activeStyle={activeLinkStyle} className="dropdown-item" to="/handleevent">
                   Handle Event
                 </NavLink>
+                <NavLink activeClassName='activeNavItem' activeStyle={activeLinkStyle} className="dropdown-item" to="/chonxebasic">
+                  Chon xe basic
+                </NavLink>
               </div>
             </li>
           </ul>
