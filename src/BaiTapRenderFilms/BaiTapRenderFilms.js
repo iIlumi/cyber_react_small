@@ -4,23 +4,41 @@ import dataFilms from '../Data/DataFilms.json';
 
 export default class BaiTapRenderFilms extends Component {
   // trả về mảng nhớ thêm key="{index}"
+  // key có thể là id nếu chắc chắn ko có id trùng
   renderFilms = () => {
     return dataFilms.map((film, index) => {
-return  <div className="col-3 mt-2" key = {index}>
-<div className="card text-white bg-dark ml-5" style={{ width: '250px' }}>
-  <img style={{ width: '250px', height: '350px' }} className="card-img-top"  alt="img card"/>
-  <div className="card-body">
-    <h4 className="card-title" style={{ fontSize: '17px', height: '50px' }}>
-      {film.tenPhim}
-    </h4>
-    <p className="card-text" style={{ fontSize: '13px', height: '50px' }}>
-      {film.moTa.length}
-    </p>
-  </div>
-</div>
-</div>;
+      return (
+        <div className="col-3 mt-2" key={index}>
+          <div
+            className="card text-white bg-dark ml-5"
+            style={{ width: '250px' }}
+          >
+            <img
+              style={{ width: '250px', height: '350px' }}
+              className="card-img-top"
+              alt="img card"
+              src={film.hinhAnh}
+            />
+            <div className="card-body">
+              <h4
+                className="card-title"
+                style={{ fontSize: '17px', height: '50px' }}
+              >
+                {film.tenPhim}
+              </h4>
+              <p
+                className="card-text"
+                style={{ fontSize: '13px', height: '50px' }}
+              >
+                {film.moTa.length > 80
+                  ? film.moTa.substr(0, 80) + '...'
+                  : film.moTa}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
     });
-    
   };
 
   //Bước 1: Xây dựng giao diện
@@ -30,6 +48,7 @@ return  <div className="col-3 mt-2" key = {index}>
   // các giá trị px bị lỗi convert phải tự thêm lại "px" vào -> check qua màu
   // Vẫn ko ok lắm, phải check tay lại
   // file bgcImgage trong root ban đầu bị sai tên
+  // min-height chỉ là placehold để chừa chỗ cho nội dung  tự co dãn
   render() {
     return (
       <div
