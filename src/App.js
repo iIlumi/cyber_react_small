@@ -1,12 +1,13 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import NavbarRoot from './component/NavbartRoot/NavbarRoot';
+import NavbarRoot from './component/NavbarRoot/NavbarRoot';
 import Home from './pages/Home/Home';
 import DataBindingDemo from './component/DataBinding/DataBindingDemo';
 import HandleEvent from './HandleEvent/HandleEvent';
 import BaiTapChonXe from './BaiTapChonXe/BaiTapChonXe';
 import BaiTapRenderFilms from './BaiTapRenderFilms/BaiTapRenderFilms';
 import BaiTapThuKinh from './BaiTapThuKinh/BaiTapThuKinh';
+import BaiTapChonXeNangCao from './BaiTapChonXeNangCao/BaiTapChonXeNangCao';
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
         <Route exact path="/chonxebasic" component={BaiTapChonXe} />
         <Route exact path="/btrenderphim" component={BaiTapRenderFilms} />
         <Route exact path="/btthukinh" component={BaiTapThuKinh} />
-
+        <Route exact path="/chonxeadv" component={BaiTapChonXeNangCao} />
 
         {/* demo */}
       </Switch>

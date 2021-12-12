@@ -45,7 +45,6 @@ export default class BaiTapThuKinh extends Component {
   };
 
   render() {
-
     // Vì cùng dùng hàm DateNow nên sẽ gen ra cùng chuỗi số như nhau-> ok
     const keyFrame = `
     @keyframes animChangeGlasses${Date.now()} {
@@ -100,12 +99,13 @@ export default class BaiTapThuKinh extends Component {
       <div
         style={{
           backgroundImage: 'url(./glassesImage/background.jpg)',
-          backgroundSize: '2000px',
-          minHeight: '2000px',
+          backgroundSize: 'cover',
+          // minHeight: '900px',
+          // bg sẽ tự dạn ra bằng với nội dung bên trong
         }}
       >
         <style>{keyFrame}</style>
-        <div style={{ backgroundColor: 'rgba(0,0,0,.8)', minHeight: '2000px' }}>
+        <div style={{ backgroundColor: 'rgba(0,0,0,.8)', minHeight: '900px' }}>
           <h3
             style={{ backgroundColor: 'rgba(0, 0 ,0,.3)' }}
             className="text-center text-light p-5"
