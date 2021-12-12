@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import dataGlasses from '../Data/dataGlasses.json';
-import './BaiTapThuKinh.css';
+// import './BaiTapThuKinh.css';
 
 // vid 18, part2 - 8 missing
 
@@ -27,7 +27,7 @@ export default class BaiTapThuKinh extends Component {
           alt="kinh mau"
           onClick={(e) => {
             this.changeGlasses(glassesItem);
-            console.log(e.target.classList)
+            console.log(e.target.classList);
             // Đây là img trong list mắt kính, ko phải kính trên người mẫu
           }}
         />
@@ -39,18 +39,36 @@ export default class BaiTapThuKinh extends Component {
   // Xem phần handling Event demo
   changeGlasses = (newGlasses) => {
     this.setState({
-      glassesCurrent: {...newGlasses, classAnim: 'glassesStyle'},
+      glassesCurrent: { ...newGlasses, classAnim: 'glassesStyle' },
     });
-    console.log(this.state)
+    console.log(this.state);
   };
 
   render() {
+
+    // Vì cùng dùng hàm DateNow nên sẽ gen ra cùng chuỗi số như nhau-> ok
+    const keyFrame = `
+    @keyframes animChangeGlasses${Date.now()} {
+      from {
+          width: 0;
+          transform: rotate(45deg);
+          opacity: 0;
+        }
+        to {
+          width: 150px;
+          opacity: 0.7;
+          transform: rotate(0deg);
+        }
+      }
+    `;
+
     const styleGlasses = {
       width: '150px',
       top: '75px',
       right: '70px',
       opacity: '0.7',
       position: 'absolute',
+      animation: `animChangeGlasses${Date.now()} 1s`,
     };
 
     // Cheat theo cộng trừ kích thước của overlay cuối
@@ -86,6 +104,7 @@ export default class BaiTapThuKinh extends Component {
           minHeight: '2000px',
         }}
       >
+        <style>{keyFrame}</style>
         <div style={{ backgroundColor: 'rgba(0,0,0,.8)', minHeight: '2000px' }}>
           <h3
             style={{ backgroundColor: 'rgba(0, 0 ,0,.3)' }}
@@ -105,7 +124,8 @@ export default class BaiTapThuKinh extends Component {
                   />
                   <img
                     style={styleGlasses}
-                    className={this.state.glassesCurrent.classAnim}
+                    // className={this.state.glassesCurrent.classAnim}
+                    className="glassesStyle"
                     src={this.state.glassesCurrent.url}
                     alt="kinh chon thu"
                   />

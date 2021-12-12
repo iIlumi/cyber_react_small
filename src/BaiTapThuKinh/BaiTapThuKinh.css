@@ -5,6 +5,16 @@ Vì class css keyframe ko được render lại khi state thay đổi mà chỉ 
 -> browser sẽ tự hiểu là ko có thay đổi và ko chạy lại 
 -> bắt buộc fix bằng setDateTime để tạo class ani mới
  */
+
+ /**
+ Fix 1 : dùng cass start with glassesStyle ^ luôn + date
+ tuy nhiên rất nguy hiểm
+ Ko thể đặt glassesStyle-modified được nữa
+ Cách fix 2 -> React jsx sẽ tận dụng Datenow
+ Vừa đổi tham số trong style.animation vừa đổi tên animation
+ Vì cùng là date now nên cả 2 sẽ cùng 1 số dc gen ra
+ ko thể viết bằng css thuần được
+ */
 @keyframes animChangeGlasses {
   from {
     width: 0;
