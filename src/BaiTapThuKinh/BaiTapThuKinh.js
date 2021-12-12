@@ -4,6 +4,16 @@ import dataGlasses from '../Data/dataGlasses.json';
 // vid 18, part2 - 8 missing
 
 export default class BaiTapThuKinh extends Component {
+  state = {
+    glassesCurrent: {
+      id: 2,
+      price: 50,
+      name: 'GUCCI G8759H',
+      url: './glassesImage/v2.png',
+      desc: 'Light pink square lenses define these sunglasses, ending with amother of pearl effect tip. ',
+    },
+  };
+
   renderGlassesList = () => {
     return dataGlasses.map((glassesItem, index) => {
       return (
@@ -13,8 +23,19 @@ export default class BaiTapThuKinh extends Component {
           key={index}
           src={glassesItem.url}
           alt="kinh mau"
+          onClick={() => {
+            this.changeGlasses(glassesItem);
+          }}
         />
       );
+    });
+  };
+
+  // Tạo callback với tham số và đưa vào trong anonymous arrow function để gọi
+  // Xem phần handling Event demo
+  changeGlasses = (newGlasses) => {
+    this.setState({
+      glassesCurrent: newGlasses,
     });
   };
 
@@ -47,6 +68,8 @@ export default class BaiTapThuKinh extends Component {
      * Bài đang làm theo col-6 của row lớn
      * -> nên set lại thành card sẽ hợp lí hơn
      * Hoặc img người mẫu phải là relative, kính và mô tả overlay là abs
+     *
+     * Khi resp sẽ ngay lập tức vỡ giao diện vì chơi set tĩnh px
      */
 
     return (
@@ -77,7 +100,7 @@ export default class BaiTapThuKinh extends Component {
                   <img
                     style={styleGlasses}
                     className="position-absolute"
-                    src="./glassesImage/v1.png"
+                    src={this.state.glassesCurrent.url}
                     alt="kinh chon thu"
                   />
                   <div style={infoGlasses} className="position-relative ">
@@ -85,11 +108,17 @@ export default class BaiTapThuKinh extends Component {
                       style={{ color: '#AB82FF', fontSize: '17px' }}
                       className="font-weight-bold"
                     >
-                      Tên kính
+                      {this.state.glassesCurrent.name}
                     </span>{' '}
                     <br />
-                    <span style={{ fontSize: '13px', fontWeight: '400' }}>
-                      Mô tả
+                    <span
+                      style={{
+                        fontSize: '14px',
+                        paddingRight: '5px',
+                        fontWeight: '400',
+                      }}
+                    >
+                      {this.state.glassesCurrent.desc}
                     </span>
                   </div>
                 </div>
