@@ -104,6 +104,12 @@ export default class BaiTapChonXe extends Component {
                     src='./carbasic/icons/icon-red.jpg'
                     alt="red_icon"
                   />
+                  <img
+                    className="col-2 pr-0"
+                    // src={require('../assets/chonXe/icons/icon-red.jpg').default}
+                    src='./background/avenger.jpg'
+                    alt="red_icon"
+                  />
                   <div className="col-10">
                     <h3>Crystal Black</h3>
                     <p>Pearl</p>
