@@ -6,6 +6,7 @@ import DataBindingDemo from './component/DataBinding/DataBindingDemo';
 import HandleEvent from './HandleEvent/HandleEvent';
 import BaiTapChonXe from './BaiTapChonXe/BaiTapChonXe';
 import BaiTapRenderFilms from './BaiTapRenderFilms/BaiTapRenderFilms';
+import BaiTapThuKinh from './BaiTapThuKinh/BaiTapThuKinh';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route exact path="/handleevent" component={HandleEvent} />
         <Route exact path="/chonxebasic" component={BaiTapChonXe} />
         <Route exact path="/btrenderphim" component={BaiTapRenderFilms} />
+        <Route exact path="/btthukinh" component={BaiTapThuKinh} />
 
 
         {/* demo */}

@@ -80,6 +80,14 @@ export default class NavbarRoot extends Component {
                 >
                   BT render phim
                 </NavLink>
+                <NavLink
+                  activeClassName="activeNavItem"
+                  activeStyle={activeLinkStyle}
+                  className="dropdown-item"
+                  to="/btthukinh"
+                >
+                  BT thu kinh
+                </NavLink>
                 {/* demo */}
               </div>
             </li>
