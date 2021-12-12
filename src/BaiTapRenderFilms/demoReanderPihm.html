@@ -18,53 +18,91 @@
     />
   </head>
   <body>
-      <!-- static tml -> b4-navbackground -->
-    <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
-      <a class="navbar-brand" href="#">Navbar</a>
-      <button
-        class="navbar-toggler d-lg-none"
-        type="button"
-        data-toggle="collapse"
-        data-target="#collapsibleNavId"
-        aria-controls="collapsibleNavId"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      ></button>
-      <div class="collapse navbar-collapse" id="collapsibleNavId">
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-          <li class="nav-item active">
-            <a class="nav-link" href="#"
-              >Home <span class="sr-only">(current)</span></a
-            >
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="dropdownId"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-              >Dropdown</a
-            >
-            <div class="dropdown-menu" aria-labelledby="dropdownId">
-              <a class="dropdown-item" href="#">Action 1</a>
-              <a class="dropdown-item" href="#">Action 2</a>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </nav>
+    <!-- Vì KQ trả về phải trong 1 div lớn nên bọc lại hét, add thêm bgi -->
+    <!-- static tml -> b4-navbackground
+    Đường dẫn trong background là đường dẫn lấy từ root là public 
+    Nên sẽ ko hiển thị đúng nữa
+    1 cách dơn giản chỉ nên style vừa phải trong html sau đó add vào React để tiếp tục style luôn
+    Các hình ảnh sẽ ko link với dạng static html demo vậy được
+    !! chú ý các giá trị chứa px ko được để trong quite nếu ko html -> jsx sẽ sinh lỗi, kể cả url 
+    -->
+    <div
+      style="
+        background-image: url(./background/avenger.jpg);
+        min-height: 2000px;
+      "
+    >
+      <div style="background-color: rgba(0, 0, 0, .5); min-height: 2000px">
+        <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
+          <a class="navbar-brand" href="#">Navbar</a>
+          <button
+            class="navbar-toggler d-lg-none"
+            type="button"
+            data-toggle="collapse"
+            data-target="#collapsibleNavId"
+            aria-controls="collapsibleNavId"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          ></button>
+          <div class="collapse navbar-collapse" id="collapsibleNavId">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+              <li class="nav-item active">
+                <a class="nav-link" href="#"
+                  >Home <span class="sr-only">(current)</span></a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="dropdownId"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  >Dropdown</a
+                >
+                <div class="dropdown-menu" aria-labelledby="dropdownId">
+                  <a class="dropdown-item" href="#">Action 1</a>
+                  <a class="dropdown-item" href="#">Action 2</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <!-- b4-card -->
+        <!-- Card nằm trong 1 div row bự
+        Mỗi card chiếm 1 số col nhất định
+        Khi đủ thì tự xuống dòng vì đã trong row sẵn
+        Chú ý là card sẽ lấy data binding từ data/ json nên chỉ set placeholder value thoi
+        -->
 
-    <!-- b4-card -->
-    <div class="col-3 mt-2">
-      <div class="card text-white bg-dark ml-5" style="width: 250px">
-        <img style="width: 250px; height: 350px" class="card-img-top" />
-        <div class="card-body">
-            
+        <div class="container-fluid mt-5">
+          <div class="row">
+            <!-- {this.renderFilms()} -->
+            <div class="col-3 mt-2">
+              <div class="card text-white bg-dark ml-5" style="width: 250px">
+                <img style="width: 250px; height: 350px" class="card-img-top" />
+                <div class="card-body">
+                  <h4
+                    class="card-title"
+                    style="font-size: 17px; height: 50px"
+                  >
+                    {film.tenPhim}
+                  </h4>
+                  <p
+                    class="card-text"
+                    style="font-size: 13px; height: 50px"
+                  >
+                    {film.moTa.length}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!-- {this.renderFilms()} -->
+          </div>
         </div>
       </div>
     </div>
