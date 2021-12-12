@@ -1,6 +1,23 @@
 import React, { Component } from 'react';
+import dataGlasses from '../Data/dataGlasses.json';
+
+// vid 18, part2 - 8 missing
 
 export default class BaiTapThuKinh extends Component {
+  renderGlassesList = () => {
+    return dataGlasses.map((glassesItem, index) => {
+      return (
+        <img
+          className="ml-2 p-2 border border-width-1"
+          style={{ width: '110px', cursor: 'pointer' }}
+          key={index}
+          src={glassesItem.url}
+          alt="kinh mau"
+        />
+      );
+    });
+  };
+
   render() {
     const styleGlasses = {
       width: '150px',
@@ -23,11 +40,11 @@ export default class BaiTapThuKinh extends Component {
     };
 
     /**
-     * minHeight và background size là placeholder để cover toàn bộ page 
+     * minHeight và background size là placeholder để cover toàn bộ page
      * -> cheat overlay cho toàn bộ trang và cheat cover
      * Cách làm đúng ? dùng width 100% ?
-     * 
-     * Bài đang làm theo col-6 của row lớn 
+     *
+     * Bài đang làm theo col-6 của row lớn
      * -> nên set lại thành card sẽ hợp lí hơn
      * Hoặc img người mẫu phải là relative, kính và mô tả overlay là abs
      */
@@ -61,6 +78,7 @@ export default class BaiTapThuKinh extends Component {
                     style={styleGlasses}
                     className="position-absolute"
                     src="./glassesImage/v1.png"
+                    alt="kinh chon thu"
                   />
                   <div style={infoGlasses} className="position-relative ">
                     <span
@@ -84,6 +102,10 @@ export default class BaiTapThuKinh extends Component {
                 />
               </div>
             </div>
+          </div>
+          {/* Div chứa các kính được chọn */}
+          <div className="bg-light container text-center mt-5 d-flex justify-content-center p-5">
+            {this.renderGlassesList()}
           </div>
         </div>
       </div>
