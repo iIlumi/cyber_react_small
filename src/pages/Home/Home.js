@@ -14,6 +14,9 @@ export default class Home extends Component {
         <NavLink className="d-block" to="/chonxebasic">
           Chon xe basic
         </NavLink>
+        <NavLink className="d-block" to="/btrenderphim">
+          BT render phim
+        </NavLink>
         {/* demo */}
       </div>
     );

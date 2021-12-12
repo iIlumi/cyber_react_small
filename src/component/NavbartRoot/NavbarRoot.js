@@ -72,6 +72,14 @@ export default class NavbarRoot extends Component {
                 >
                   Chon xe basic
                 </NavLink>
+                <NavLink
+                  activeClassName="activeNavItem"
+                  activeStyle={activeLinkStyle}
+                  className="dropdown-item"
+                  to="/btrenderphim"
+                >
+                  BT render phim
+                </NavLink>
                 {/* demo */}
               </div>
             </li>
