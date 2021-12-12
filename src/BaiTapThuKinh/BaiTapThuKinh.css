@@ -1,3 +1,10 @@
+/* Cách ĐN animation như vậy sẽ chỉ được chạy 1 lần duy nhất
+Vì class css keyframe ko được render lại khi state thay đổi mà chỉ có url, name, desc ...
+? hack bằng cách add class css vào state
+-> ko được vì cùng 1 tên class, 
+-> browser sẽ tự hiểu là ko có thay đổi và ko chạy lại 
+-> bắt buộc fix bằng setDateTime để tạo class ani mới
+ */
 @keyframes animChangeGlasses {
   from {
     width: 0;
@@ -9,4 +16,9 @@
     opacity: 0.7;
     transform: rotate(0deg);
   }
+}
+
+.glassesStyle{
+    width: 250px;
+    animation: animChangeGlasses 1s;
 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import dataGlasses from '../Data/dataGlasses.json';
+import './BaiTapThuKinh.css';
 
 // vid 18, part2 - 8 missing
 
@@ -11,6 +12,7 @@ export default class BaiTapThuKinh extends Component {
       name: 'GUCCI G8759H',
       url: './glassesImage/v2.png',
       desc: 'Light pink square lenses define these sunglasses, ending with amother of pearl effect tip. ',
+      classAnim: 'glassesStyle',
     },
   };
 
@@ -23,8 +25,10 @@ export default class BaiTapThuKinh extends Component {
           key={index}
           src={glassesItem.url}
           alt="kinh mau"
-          onClick={() => {
+          onClick={(e) => {
             this.changeGlasses(glassesItem);
+            console.log(e.target.classList)
+            // Đây là img trong list mắt kính, ko phải kính trên người mẫu
           }}
         />
       );
@@ -35,8 +39,9 @@ export default class BaiTapThuKinh extends Component {
   // Xem phần handling Event demo
   changeGlasses = (newGlasses) => {
     this.setState({
-      glassesCurrent: newGlasses,
+      glassesCurrent: {...newGlasses, classAnim: 'glassesStyle'},
     });
+    console.log(this.state)
   };
 
   render() {
@@ -45,6 +50,7 @@ export default class BaiTapThuKinh extends Component {
       top: '75px',
       right: '70px',
       opacity: '0.7',
+      position: 'absolute',
     };
 
     // Cheat theo cộng trừ kích thước của overlay cuối
@@ -99,7 +105,7 @@ export default class BaiTapThuKinh extends Component {
                   />
                   <img
                     style={styleGlasses}
-                    className="position-absolute"
+                    className={this.state.glassesCurrent.classAnim}
                     src={this.state.glassesCurrent.url}
                     alt="kinh chon thu"
                   />
