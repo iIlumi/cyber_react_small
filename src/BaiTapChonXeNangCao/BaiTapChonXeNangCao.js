@@ -9,7 +9,7 @@ export default class BaiTapChonXeNangCao extends Component {
       return (
         <div className="row border border-color-default m-3 p-2" key={index}>
           <div className="col-2 d-flex align-items-center">
-            <img style={{ width: '100%' }} src={item.img} alt={index} />
+            {/* <img style={{ width: '100%' }} src={item.img} alt={index} /> */}
           </div>
           <div className="col-10">
             <h3>{item.title}</h3>
@@ -35,17 +35,44 @@ export default class BaiTapChonXeNangCao extends Component {
     });
   };
 
+  componentDidMount = () => {
+    //Đây là phương thức có sẵn của component tự động thực thi sau khi render được gọi, lưu ý: componentDidmount chỉ chạy 1 lần đầu tiên sau khi render thực thi
+    // <script src="https://cdn.scaleflex.it/plugins/js-cloudimage-360-view/2.7.1/js-cloudimage-360-view.min.js"></script>
+
+    let tagScript = document.createElement('script');
+    tagScript.src =
+      'https://cdn.scaleflex.it/plugins/js-cloudimage-360-view/2.7.1/js-cloudimage-360-view.min.js';
+
+    document.querySelector('#appendScript').appendChild(tagScript);
+  };
+
   render() {
     return (
       <div className="container-fluid">
         <div className="row">
           <div className="col-7">
             <div className="model">
-              <img
+              {/* <img
                 style={{ width: '100%' }}
                 src="./carAdvRotate/images-black/images-black-1/civic-1.jpg"
                 alt="car model"
-              />
+              /> */}
+              <div
+                class="cloudimage-360"
+                data-folder="./carAdvRotate/images-red/images-red-1/"
+                data-filename="civic-{index}.jpg"
+                data-amount="8"
+              ></div>
+
+              <div id="appendScript">
+                {/* 
+            Set script ở đây vẫn chưa được vì tính bất đồng bộ trong ele của React -> script là component chứ ko phải html bình thường
+            Ctrl+click vào được
+            -> 2 ele React render đồng thời và sẽ ko có tác dụng
+            -> fix = component did mount, tới lifecycle sẽ kỹ hơn
+            */}
+                {/* <script src="https://cdn.scaleflex.it/plugins/js-cloudimage-360-view/2.7.1/js-cloudimage-360-view.min.js"></script> */}
+              </div>
             </div>
             {/* b4-card-default */}
             <div className="card mt-2">
