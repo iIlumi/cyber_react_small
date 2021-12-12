@@ -41,6 +41,8 @@ export default class BaiTapChonXe extends Component {
             <div className="card text-dark">
               <div className="card-header text-primary">Exterior Color</div>
               <div className="card-body">
+                {/* Exterior Color Icon */}
+                {/* Icon 1 */}
                 <div
                   className="row border border-link pt-2 pb-2 mt-2"
                   onClick={() => {}}
@@ -58,7 +60,7 @@ export default class BaiTapChonXe extends Component {
                     <p>Pearl</p>
                   </div>
                 </div>
-
+                {/* Icon 1 */}
                 <div
                   className="row border border-link pt-2 pb-2 mt-2"
                   onClick={() => {}}
@@ -109,6 +111,7 @@ export default class BaiTapChonXe extends Component {
                     <p>Pearl</p>
                   </div>
                 </div>
+                {/* Exterior Color Icon */}
               </div>
             </div>
           </div>
