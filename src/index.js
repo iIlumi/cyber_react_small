@@ -4,10 +4,15 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+// Nếu gọi trực tiếp Prouct demo và console log prop thì có TH bị log 2 lần
+// Fix bằng cách bỏ tag StricMode bọc ngoài
+
 ReactDOM.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,
+  // <App />.
+
   document.getElementById('root')
 );
 

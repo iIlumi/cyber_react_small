@@ -44,7 +44,7 @@ export default class NavbarRoot extends Component {
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                Dropup
+                Khóa 1
               </button>
 
               <div className="dropdown-menu" aria-labelledby="dropdownId">
@@ -96,9 +96,34 @@ export default class NavbarRoot extends Component {
                 >
                   Chọn xe adv
                 </NavLink>
-                {/* demo */}
+                {/* demo K1*/}
               </div>
             </li>
+            <li className="nav-item dropup">
+              <button
+                type="button"
+                className="btn btn-secondary dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Khóa 2
+              </button>
+
+              <div className="dropdown-menu" aria-labelledby="dropdownId">
+                <NavLink
+                  activeClassName="activeNavItem"
+                  activeStyle={activeLinkStyle}
+                  className="dropdown-item"
+                  to="/productdemo"
+                >
+                  Product Demo
+                </NavLink>
+
+                {/* demo K2*/}
+              </div>
+            </li>
+            {/* demo*/}
           </ul>
         </div>
       </nav>

@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import './BaiTapChonXeNangCao.css';
+// import './BaiTapChonXeNangCao.css';
+// import style from './BaiTapChonXeNangCao.module.css';
+/**
+ * import css trực tiếp ko module sẽ đè lại 1 số class của BS
+ * đè luôn cả 1 số bài về sau ko hay
+ * import kiểu module thì cú pháp sẽ dài
+ * Dạng scss sẽ là ổn nhất nhưng chưa học ở đâu
+ */
 //Import mảng dữ liệu các model xe
 import dataFeatures from '../Data/arrayFeatures.json';
 import dataWheels from '../Data/wheels.json';

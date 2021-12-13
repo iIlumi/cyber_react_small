@@ -8,8 +8,11 @@ import BaiTapChonXe from './BaiTapChonXe/BaiTapChonXe';
 import BaiTapRenderFilms from './BaiTapRenderFilms/BaiTapRenderFilms';
 import BaiTapThuKinh from './BaiTapThuKinh/BaiTapThuKinh';
 import BaiTapChonXeNangCao from './BaiTapChonXeNangCao/BaiTapChonXeNangCao';
+import ProductDemo from './pages/ProductDemo/ProductDemo';
 
 function App() {
+  // Nếu gọi trực tiếp Prouct demo và console log prop thì có TH bị log 2 lần
+  // Fix bằng cách sửa trong index.js
   return (
     <BrowserRouter>
       <Switch>
@@ -22,6 +25,8 @@ function App() {
         <Route exact path="/btrenderphim" component={BaiTapRenderFilms} />
         <Route exact path="/btthukinh" component={BaiTapThuKinh} />
         <Route exact path="/chonxeadv" component={BaiTapChonXeNangCao} />
+        {/* Khóa 2 */}
+        <Route exact path="/productdemo" component={ProductDemo} />
 
         {/* demo */}
       </Switch>
