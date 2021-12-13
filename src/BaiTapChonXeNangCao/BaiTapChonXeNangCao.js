@@ -3,6 +3,25 @@ import './BaiTapChonXeNangCao.css';
 //Import mảng dữ liệu các model xe
 import dataFeatures from '../Data/arrayFeatures.json';
 import dataWheels from '../Data/wheels.json';
+/**
+ * TODO - WARNING
+ * [Violation] Added non-passive event listener to a scroll-blocking 'touchstart' event. Consider marking event handler as 'passive' to make the page more responsive. See https://www.chromestatus.com/feature/5745543795965952
+ * 
+ * https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md
+https://stackoverflow.com/questions/37721782/what-are-passive-event-listeners
+https://stackoverflow.com/questions/50466911/passive-event-listeners
+https://pretagteam.com/question/how-to-add-passive-event-listeners-in-react
+https://stackoverflow.com/questions/39152877/consider-marking-event-handler-as-passive-to-make-the-page-more-responsive
+
+
+ * VM8378 v2.0.0.lazysizes.min.js:11 Uncaught DOMException: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+    at t.value (https://cdn.scaleflex.it/filerobot/js-cloudimage-360-view/v2.0.0.lazysizes.min.js:11:20080)
+    at t.value (https://cdn.scaleflex.it/filerobot/js-cloudimage-360-view/v2.0.0.lazysizes.min.js:11:12801)
+value @ VM8378 v2.0.0.lazysizes.min.js:11
+value @ VM8378 v2.0.0.lazysizes.min.js:11
+
+-> Lỗi xuất hiện do remove 
+ */
 export default class BaiTapChonXeNangCao extends Component {
   state = {
     carCurrent: {
@@ -65,10 +84,33 @@ export default class BaiTapChonXeNangCao extends Component {
     });
   };
 
+  changeWheel = (newWheel) => {
+    //Tìm trong state hiện tại (this.state.carCurrent.wheels)
+    let obWheel = this.state.carCurrent.wheels.find(
+      (item) => item.idWheel === newWheel.idWheel
+    );
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find
+    // Array.find trả về undefined nếu ko thấy chứ ko phải -1 
+    console.log('obWheel:', obWheel);
+    if (obWheel !== undefined) {
+      //lấy ra source hình ảnh từ this.state.carCurrent.wheels
+      this.setState({
+        carCurrent: { ...this.state.carCurrent, srcImg: obWheel.srcImg },
+      });
+    }
+  };
+
   renderWheels = () => {
     return dataWheels.map((item, index) => {
       return (
-        <div className="row border border-color-default m-3 p-2" key={index}>
+        <div
+          style={{ cursor: 'pointer' }}
+          onClick={() => {
+            this.changeWheel(item);
+          }}
+          className="row border border-color-default m-3 p-2"
+          key={index}
+        >
           <div className="col-2">
             <img style={{ width: '100%' }} src={item.img} alt={index} />
           </div>
@@ -89,6 +131,39 @@ export default class BaiTapChonXeNangCao extends Component {
       'https://cdn.scaleflex.it/plugins/js-cloudimage-360-view/2.7.1/js-cloudimage-360-view.min.js';
 
     document.querySelector('#appendScript').appendChild(tagScript);
+    console.log('did mount');
+  };
+
+  // vấn đề xảy ra tương tự như  với css animation
+  componentDidUpdate = () => {
+    //Hàm này chạy sau khi state thay đổi (Tự kích hoạt sau render)
+    //Lưu ý: Không được phép setState tại component này vì infinity loop
+
+    //clean ảnh cũ + script cũ,
+    // -> nếu ko sẽ vẫn chạy nhưng ra nhiều xe cùng load
+    // Load script mới trước -> gen lại ảnh mới !!
+    // Hoặc có thể nhét script và cả ảnh vào chung 1 div cha
+    // -> clean cùng lúc nhưng đổi cấu trúc html, tiện code hơn 1 tí
+    // vì clean cả 2 được nên ko phải newDate như css animation
+
+    /**
+     * Tuy nhiên lại sao React ko re-render mà lại sinh thêm ra ele mới khi click ?
+     * img car model sinh ra là do canvas của thư viện tạo ra, ko phải React !
+     * Đúng ra phải xóa toàn bộ div con, re-render lại để thư viện tự sinh các component con đúng định nghĩa ???
+     */
+    document.querySelector('#carCurrent').innerHTML = '';
+    document.querySelector('#appendScript').innerHTML = '';
+
+    let tagScript = document.createElement('script');
+    // tagScript.src =
+    // 'https://cdn.scaleflex.it/plugins/js-cloudimage-360-view/2.7.1/js-cloudimage-360-view.min.js';
+    // Sử dụng script Lazy load cho phần script thêm vào
+    // Thư viện bất đồng bộ
+    tagScript.src =
+      'https://cdn.scaleflex.it/filerobot/js-cloudimage-360-view/v2.0.0.lazysizes.min.js';
+
+    document.querySelector('#appendScript').appendChild(tagScript);
+    console.log('did update');
   };
 
   render() {
@@ -97,11 +172,6 @@ export default class BaiTapChonXeNangCao extends Component {
         <div className="row">
           <div className="col-7">
             <div className="model">
-              {/* <img
-                style={{ width: '100%' }}
-                src="./carAdvRotate/images-black/images-black-1/civic-1.jpg"
-                alt="car model"
-              /> */}
               <div
                 id="carCurrent"
                 // width 100% ko đè được nhưng min-width lại override width!important được ??
@@ -112,6 +182,11 @@ export default class BaiTapChonXeNangCao extends Component {
                 data-filename="civic-{index}.jpg"
                 data-amount="8"
               ></div>
+              {/* <img
+                style={{ width: '100%' }}
+                src="./carAdvRotate/images-black/images-black-1/civic-1.jpg"
+                alt="car model"
+              /> */}
             </div>
             <div id="appendScript">
               {/* 
