@@ -8,10 +8,10 @@ import reportWebVitals from './reportWebVitals';
 // Fix bằng cách bỏ tag StricMode bọc ngoài
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  // <App />.
+  // <React.StrictMode>
+  //   <App />
+  // </React.StrictMode>,
+  <App />,
 
   document.getElementById('root')
 );
