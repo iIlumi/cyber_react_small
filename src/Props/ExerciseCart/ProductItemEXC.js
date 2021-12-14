@@ -15,7 +15,12 @@ export default class ProductItemEXC extends Component {
         <div className="card-body">
           <h4 className="card-title">{tenSP}</h4>
           <p className="card-text">{giaBan.toLocaleString()}</p>
-          <button className="btn btn-success" onClick={() => {}}>
+          <button
+            className="btn btn-success"
+            onClick={() => {
+              this.props.themGioHang(this.props.sanPhamProps);
+            }}
+          >
             Thêm giỏ hàng
           </button>
         </div>

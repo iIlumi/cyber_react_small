@@ -3,6 +3,16 @@ import CartModal from './CartModal';
 import ProductListEXC from './ProductListEXC';
 
 export default class ExerciseCart extends Component {
+  state = {
+    gioHang: [
+      { maSP: 1, hinhAnh: '', tenSP: 'tên mặc định', soLuong: 1, donGia: 0 },
+    ],
+  };
+
+  themGioHang = (sanPham) => {
+    console.log(sanPham);
+  };
+
   render() {
     return (
       <div className="container-fluid">
@@ -18,8 +28,8 @@ export default class ExerciseCart extends Component {
             </i>
           </span>
         </div>
-        <ProductListEXC />
-        <CartModal />
+        <CartModal gioHang={this.state.gioHang} />
+        <ProductListEXC themGioHang={this.themGioHang} />
       </div>
     );
   }
