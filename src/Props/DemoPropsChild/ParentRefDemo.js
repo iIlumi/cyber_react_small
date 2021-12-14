@@ -4,6 +4,20 @@ export default class ParentRefDemo extends Component {
   state = {
     title: 'Parent Ref Tile',
   };
+
+  changeTitle = () => {
+    this.setState({
+      title: 'Title changed',
+    });
+  };
+  
+  // Ăn gian es6 title:title -> title
+  changeTitleWPara = (title) => {
+    this.setState({
+      title,
+    });
+  };
+
   render() {
     return (
       <div>
