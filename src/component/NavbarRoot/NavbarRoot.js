@@ -128,6 +128,14 @@ export default class NavbarRoot extends Component {
                 >
                   Props function Demo
                 </NavLink>
+                <NavLink
+                  activeClassName="activeNavItem"
+                  activeStyle={activeLinkStyle}
+                  className="dropdown-item"
+                  to="/btcarstore"
+                >
+                  bt car store - modal
+                </NavLink>
 
                 {/* demo K2*/}
               </div>

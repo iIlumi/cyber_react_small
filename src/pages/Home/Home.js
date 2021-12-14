@@ -32,6 +32,9 @@ export default class Home extends Component {
         <NavLink className="d-block" to="/propsfunctiondemo">
           Props function Demo
         </NavLink>
+        <NavLink className="d-block" to="/btcarstore">
+          btcarstore - modal
+        </NavLink>
 
         {/* demo */}
       </div>
