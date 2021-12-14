@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default class Modal extends Component {
+export default class CarModal extends Component {
   /**
    * Note thêm về modal BS vì React là single page
    * Vị trí đặt modal ko quan trọng,
@@ -47,7 +47,7 @@ export default class Modal extends Component {
                 </button>
               </div>
               <div className="modal-body">
-                <img style={{ width: '100%' }} src={img} />
+                <img style={{ width: '100%' }} src={img} alt={name}/>
               </div>
               <div className="modal-footer">
                 <button

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default class ProductItem extends Component {
+export default class CarItem extends Component {
   render() {
     //Thuộc tính this.props.item lấy từ productListComponent
     let { img, name, price } = this.props.item;

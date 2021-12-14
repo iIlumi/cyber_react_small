@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Modal from './Modal';
-import ProductList from './ProductList';
+import CarList from './CarList';
+import CarModal from './CarModal';
 
 export default class ExerciseCarStore extends Component {
   products = [
@@ -45,8 +45,8 @@ export default class ExerciseCarStore extends Component {
     return (
       <div>
         <h3 className="display-4 text-center">Danh sách xe</h3>
-        <ProductList productsData={this.products} xemChiTiet={this.xemChiTiet}/>
-        <Modal content={this.state.productDetail} />
+        <CarList productsData={this.products} xemChiTiet={this.xemChiTiet}/>
+        <CarModal content={this.state.productDetail} />
       </div>
     );
   }

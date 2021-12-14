@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import ProductItem from './ProductItem';
+import CarItem from './CarItem';
 
-export default class ProductList extends Component {
+export default class CarList extends Component {
   renderProductItem = () => {
     //this.props.productsData do ExerciseCarStoreComponent truyền vào
     // Tiếp tục truyền callback xemChiTiet xuống dưới
@@ -10,7 +10,7 @@ export default class ProductList extends Component {
     return this.props.productsData.map((product, index) => {
       return (
         <div className="col-3" key={index}>
-          <ProductItem item={product} xemChiTiet={this.props.xemChiTiet} />
+          <CarItem item={product} xemChiTiet={this.props.xemChiTiet} />
         </div>
       );
     });
