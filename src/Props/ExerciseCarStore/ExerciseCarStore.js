@@ -30,12 +30,23 @@ export default class ExerciseCarStore extends Component {
     },
   ];
 
+  // setState phải ở cùng vị trí với state cha gốc
+  // phải định nghĩa thuộc tính products trước state mới viết như dưới được 
+  state = {
+    productDetail: this.products[1],
+  };
+
+  xemChiTiet = (newProduct) => {
+    this.setState({
+      productDetail: newProduct,
+    });
+  };
   render() {
     return (
       <div>
         <h3 className="display-4 text-center">Danh sách xe</h3>
-        <Modal />
-        <ProductList productsData={this.products} />
+        <ProductList productsData={this.products} xemChiTiet={this.xemChiTiet}/>
+        <Modal content={this.state.productDetail} />
       </div>
     );
   }
