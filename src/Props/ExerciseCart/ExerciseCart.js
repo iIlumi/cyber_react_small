@@ -10,7 +10,37 @@ export default class ExerciseCart extends Component {
   };
 
   themGioHang = (sanPham) => {
-    console.log(sanPham);
+    console.log('sanPham:', sanPham);
+    // Cách viết bình thường:
+    // let spGioHang = {
+    //     maSP: sanPham.maSP,
+    //     tenSP: sanPham.tenSP,
+    //     donGia: sanPham.giaBan,
+    //     soLuong: 1,
+    //     hinhAnh: sanPham.hinhAnh
+    // }
+
+    // es6 Using Object Destructuring and Property Shorthand
+    // https://stackoverflow.com/questions/17781472/how-to-get-a-subset-of-a-javascript-objects-properties?page=1&tab=active#tab-top
+    let spGioHang = (({ maSP, tenSP, hinhAnh, giaBan }) => ({
+      maSP,
+      tenSP,
+      hinhAnh,
+      donGia: giaBan,
+      soLuong: 1,
+    }))(sanPham);
+    console.log('spGioHang:', spGioHang);
+
+    /**
+     * es6 push style
+     * let gioHangCapNhat = [...this.state.gioHang, spGioHang];
+     * Thay vì
+     * this.state.gioHang.push(spGioHang)
+     */
+
+    this.setState({
+      gioHang: [...this.state.gioHang, spGioHang],
+    });
   };
 
   render() {
