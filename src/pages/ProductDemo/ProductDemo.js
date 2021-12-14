@@ -29,7 +29,7 @@ export default class ProductDemo extends Component {
               aria-orientation="vertical"
             >
               <a
-                className="nav-link active"
+                className="nav-link"
                 id="home"
                 data-toggle="pill"
                 href="#home-pill"
@@ -40,7 +40,7 @@ export default class ProductDemo extends Component {
                 Home
               </a>
               <a
-                className="nav-link"
+                className="nav-link active"
                 id="shop"
                 data-toggle="pill"
                 href="#shop-pill"
@@ -56,7 +56,7 @@ export default class ProductDemo extends Component {
             <h4>Product demo</h4>
             <div className="tab-content" id="v-pills-tabContent">
               <div
-                className="tab-pane fade show active"
+                className="tab-pane fade"
                 id="home-pill"
                 role="tabpanel"
                 aria-labelledby="home"
@@ -65,16 +65,22 @@ export default class ProductDemo extends Component {
                 <p>
                   Bỏ strict mode đi khi đưa Product list vô đây vì bị warning
                   khi console.log
+                  <br />
+                  log trong render thì chỉ render 1 lần khi Product Demo render
+                  <br />
+                  image zoom lên khi vừa load trang dùng class animation trong
+                  thư viện w3 school css
                 </p>
                 <ProductList arrProduct={dataJson} />
               </div>
               <div
-                className="tab-pane fade"
+                className="tab-pane fade show active"
                 id="shop-pill"
                 role="tabpanel"
                 aria-labelledby="shop"
               >
-                Shop content
+                Shop content default,{' '}
+                <b className="text-danger">jump qua tab home để xem demo</b>
               </div>
             </div>
           </div>
