@@ -17,9 +17,16 @@ export default class DanhSachSanPham extends Component {
     return this.mangSanPham.map((sanPham, index) => {
       return (
         <div className="col-4" key={index}>
-          <SanPham sanPhamProps={sanPham} />
+          <SanPham sanPhamProps={sanPham} xemChiTiet={this.xemChiTiet}/>
         </div>
       );
+    });
+  };
+
+  xemChiTiet = (sanPhamChon) => {
+    console.log('sanPhamChon:', sanPhamChon)
+    this.setState({
+      sanPhamChiTiet: sanPhamChon,
     });
   };
 
