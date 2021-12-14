@@ -36,7 +36,7 @@ export default class CartModal extends Component {
         aria-labelledby="modelTitleId"
         aria-hidden="true"
       >
-        <div className="modal-dialog" role="document">
+        <div style={{minWidth:1000}} className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title">Giỏ hàng</h5>

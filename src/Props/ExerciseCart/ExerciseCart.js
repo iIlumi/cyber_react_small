@@ -5,7 +5,9 @@ import ProductListEXC from './ProductListEXC';
 export default class ExerciseCart extends Component {
   state = {
     gioHang: [
-      { maSP: 1, hinhAnh: '', tenSP: 'tên mặc định', soLuong: 1, donGia: 0 },
+      // Set gioHang về rõng để ko trùng maSP
+      // Lúc đầu set ta5jm để check giao diện render
+      // { maSP: 1, hinhAnh: '', tenSP: 'tên mặc định', soLuong: 1, donGia: 0 },
     ],
   };
 
@@ -19,7 +21,6 @@ export default class ExerciseCart extends Component {
     //     soLuong: 1,
     //     hinhAnh: sanPham.hinhAnh
     // }
-
     // es6 Using Object Destructuring and Property Shorthand
     // https://stackoverflow.com/questions/17781472/how-to-get-a-subset-of-a-javascript-objects-properties?page=1&tab=active#tab-top
     let spGioHang = (({ maSP, tenSP, hinhAnh, giaBan }) => ({
@@ -38,8 +39,25 @@ export default class ExerciseCart extends Component {
      * this.state.gioHang.push(spGioHang)
      */
 
+    // Ko mutate trực tiếp vào state.gioHang mà tạo 1 deepCopy
+    let newStateGioHang = [...this.state.gioHang];
+
+    //Tìm xem sản phẩm đã có trong giỏ hàng chưa
+
+    let index = newStateGioHang.findIndex(
+      (spGH) => spGH.maSP === spGioHang.maSP
+    );
+
+    if (index !== -1) {
+      //tìm thấy sản phẩm được click chứa trong giỏ hàng => Tăng số lượng
+      newStateGioHang[index].soLuong += 1;
+    } else {
+      //Không tìm thấy trong giỏ hàng chứa sp đó => thêm sp đó vào giỏ
+      newStateGioHang.push(spGioHang);
+    }
+    // let gioHangCapNhat = [...this.state.gioHang];
     this.setState({
-      gioHang: [...this.state.gioHang, spGioHang],
+      gioHang: newStateGioHang,
     });
   };
 
