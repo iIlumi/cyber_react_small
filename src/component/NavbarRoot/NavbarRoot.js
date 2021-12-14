@@ -120,6 +120,15 @@ export default class NavbarRoot extends Component {
                   Product Demo
                 </NavLink>
 
+                <NavLink
+                  activeClassName="activeNavItem"
+                  activeStyle={activeLinkStyle}
+                  className="dropdown-item"
+                  to="/propsfunctiondemo"
+                >
+                  Props function Demo
+                </NavLink>
+
                 {/* demo K2*/}
               </div>
             </li>

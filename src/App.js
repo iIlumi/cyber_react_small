@@ -9,6 +9,7 @@ import BaiTapRenderFilms from './BaiTapRenderFilms/BaiTapRenderFilms';
 import BaiTapThuKinh from './BaiTapThuKinh/BaiTapThuKinh';
 import BaiTapChonXeNangCao from './BaiTapChonXeNangCao/BaiTapChonXeNangCao';
 import ProductDemo from './pages/ProductDemo/ProductDemo';
+import DanhSachSanPham from './Props/DanhSachSanPham';
 
 function App() {
   // Nếu gọi trực tiếp Prouct demo và console log prop thì có TH bị log 2 lần
@@ -27,6 +28,7 @@ function App() {
         <Route exact path="/chonxeadv" component={BaiTapChonXeNangCao} />
         {/* Khóa 2 */}
         <Route exact path="/productdemo" component={ProductDemo} />
+        <Route exact path="/propsfunctiondemo" component={DanhSachSanPham} />
 
         {/* demo */}
       </Switch>
