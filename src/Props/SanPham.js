@@ -15,7 +15,7 @@ export default class SanPham extends Component {
     let { hinhAnh, tenSP, giaBan } = this.props.sanPhamProps;
 
     return (
-      <div className="card text-left text-center">
+      <div className="card text-center">
         <img
           style={{ width: 250, height: 250, marginLeft: 50 }}
           className="card-img-top"

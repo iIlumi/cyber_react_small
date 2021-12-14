@@ -144,6 +144,14 @@ export default class NavbarRoot extends Component {
                 >
                   Demo Props Children
                 </NavLink>
+                <NavLink
+                  activeClassName="activeNavItem"
+                  activeStyle={activeLinkStyle}
+                  className="dropdown-item"
+                  to="/btgiohang"
+                >
+                  BT giỏ hàng
+                </NavLink>
 
                 {/* demo K2*/}
               </div>
