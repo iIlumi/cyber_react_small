@@ -61,6 +61,37 @@ export default class ExerciseCart extends Component {
     });
   };
 
+  xoaGioHang = (maSP) => {
+    //Thực hiện tính năng xóa giỏ hàng
+    // mutate dạng xóa thì OK ?
+    console.log('maSP sẻ xóa:', maSP)
+
+    // Từ maSP -> index trong Array State -> Xóa
+    let index = this.state.gioHang.findIndex(
+      (spGioHang) => spGioHang.maSP === maSP
+    );
+    if (index !== -1) {
+      this.state.gioHang.splice(index, 1);
+    }
+
+    this.setState({
+      gioHang: this.state.gioHang,
+    });
+
+    //this.setState ....
+  };
+
+  xoaGioHangIndex = (index) => {
+    console.log('index trong array state sẽ xóa:', index)
+    this.state.gioHang.splice(index, 1);
+
+    this.setState({
+      // gioHang: this.state.gioHang.splice(index, 1)
+      // Ẩu, splice mutate trực tiếp mà lại assign cùng lúc
+      gioHang: this.state.gioHang,
+    });
+  };
+
   render() {
     return (
       <div className="container-fluid">
@@ -76,7 +107,11 @@ export default class ExerciseCart extends Component {
             </i>
           </span>
         </div>
-        <CartModal gioHang={this.state.gioHang} />
+        <CartModal
+          xoaGioHang={this.xoaGioHang}
+          gioHang={this.state.gioHang}
+          xoaGioHangIndex={this.xoaGioHangIndex}
+        />
         <ProductListEXC themGioHang={this.themGioHang} />
       </div>
     );

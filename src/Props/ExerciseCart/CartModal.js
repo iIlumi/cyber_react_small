@@ -17,14 +17,31 @@ export default class CartModal extends Component {
           </td>
           <td>{tenSP}</td>
           <td>{soLuong}</td>
-          <td>{donGia}</td>
-          <td>{donGia * soLuong}</td>
-          <td></td>
+          <td>{donGia.toLocaleString()}</td>
+          <td>{(donGia * soLuong).toLocaleString()}</td>
+          <td>
+            <button
+              onClick={() => {
+                this.props.xoaGioHang(spGioHang.maSP);
+              }}
+              className="btn btn-danger"
+            >
+              Xóa-maSP
+            </button>
+            <button
+              onClick={() => {
+                this.props.xoaGioHangIndex(index);
+              }}
+              className="btn btn-warning"
+            >
+              Xóa-index
+            </button>
+          </td>
         </tr>
       );
     });
   };
-  
+
   render() {
     return (
       // Modal b4-modal-default
@@ -36,7 +53,11 @@ export default class CartModal extends Component {
         aria-labelledby="modelTitleId"
         aria-hidden="true"
       >
-        <div style={{minWidth:1000}} className="modal-dialog" role="document">
+        <div
+          style={{ minWidth: 1000 }}
+          className="modal-dialog"
+          role="document"
+        >
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title">Giỏ hàng</h5>
