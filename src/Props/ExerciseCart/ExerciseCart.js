@@ -116,7 +116,7 @@ export default class ExerciseCart extends Component {
     let gioHang = [...this.state.gioHang];
 
     let index = gioHang.findIndex((spGioHang) => spGioHang.maSP === maSP);
-    if (index != -1) {
+    if (index !== -1) {
       if (gioHang[index].soLuong <= 1 && number === -1) {
         alert('Số lượng tối thiểu ít nhất là 1!');
         this.xoaGioHangIndex(index);

@@ -1,7 +1,10 @@
-import {combineReducers} from 'redux'
+import { combineReducers } from 'redux';
+import BaiTapGioHangReducer from './BaiTapGioHangReducer';
 
+// store tổng của ứng dụng
 const rootReducer = combineReducers({
-    // store tổng của ứng dụng
-})
+  //state giỏ hàng
+  stateGioHang: BaiTapGioHangReducer,
+});
 
 export default rootReducer;

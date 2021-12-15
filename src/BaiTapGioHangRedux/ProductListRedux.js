@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import ProductItemRedux from './ProductItemRedux';
-import mangSanPham from '../Data/dataPhone.json'
+import mangSanPham from '../Data/dataPhone.json';
 
 export default class ProductListRedux extends Component {
-  
-
   renderSanPham = () => {
     return mangSanPham.map((sanPham, index) => {
       return (
