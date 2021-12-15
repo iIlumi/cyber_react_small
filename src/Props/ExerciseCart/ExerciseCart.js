@@ -93,7 +93,7 @@ export default class ExerciseCart extends Component {
   };
 
   tinhTongSoLuong = () => {
-    //Dùng for
+    // Dùng for
     // let tongSoLuong = 0;
     // for(let i=0;i<this.state.gioHang.length;i++){
     //     let spGioHang = this.state.gioHang[i];
@@ -106,6 +106,30 @@ export default class ExerciseCart extends Component {
         return (tongSoLuong += spGioHang.soLuong);
       }, 0)
       .toLocaleString();
+  };
+
+  // Có thể viết sang dạng truyền index luôn
+  tangGiamSoLuong = (maSP, number) => {
+    // 1 -> tăng, -1 -> giảm
+    // ko mutate trực tiếp mà copy ra, 
+    // trùng tên OK để tiện code nhanh, khỏi suy nghĩ tên biến
+    let gioHang = [...this.state.gioHang];
+
+    let index = gioHang.findIndex((spGioHang) => spGioHang.maSP === maSP);
+    if (index != -1) {
+      if (gioHang[index].soLuong <= 1 && number === -1) {
+        alert('Số lượng tối thiểu ít nhất là 1!');
+        this.xoaGioHangIndex(index);
+        return;
+      }
+      // Tìm ra spGioHang trong giỏ hàng thứ index => tăng số lượng
+      gioHang[index].soLuong += number;
+    }
+
+    // Render và gán lại giá trị state.gioHang
+    this.setState({
+      gioHang: gioHang,
+    });
   };
 
   render() {
@@ -126,6 +150,7 @@ export default class ExerciseCart extends Component {
           </span>
         </div>
         <CartModal
+          tangGiamSoLuong={this.tangGiamSoLuong}
           xoaGioHang={this.xoaGioHang}
           gioHang={this.state.gioHang}
           xoaGioHangIndex={this.xoaGioHangIndex}
