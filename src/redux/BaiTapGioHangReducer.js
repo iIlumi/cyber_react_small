@@ -46,6 +46,26 @@ const BaiTapGioHangReducer = (state = stateGioHang, action) => {
       return { ...state };
     }
     // break;
+    case 'TANG_GIAM_SO_LUONG': {
+      let gioHangCapNhat = [...state.gioHang];
+      //Xử lý tăng giảm trên giỏ hàng cập nhật
+      let index = gioHangCapNhat.findIndex((spGH) => spGH.maSP === action.maSP);
+      if (index !== -1) {
+        if (action.tangGiam) {
+          gioHangCapNhat[index].soLuong += 1;
+        } else {
+          if (gioHangCapNhat[index].soLuong > 1) {
+            gioHangCapNhat[index].soLuong -= 1;
+          } else {
+            alert('Số lượng tối thiểu là 1!');
+          }
+        }
+      }
+      //Lấy giá trị giỏ hàng cập nhật gán vào state.gioHang
+      state.gioHang = gioHangCapNhat;
+      return { ...state };
+    }
+    // break;
     default:
       return { ...state };
   }

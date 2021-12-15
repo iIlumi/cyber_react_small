@@ -20,7 +20,25 @@ class GioHangRedux extends Component {
             />
           </td>
           <td>{tenSP}</td>
-          <td>{soLuong.toLocaleString()}</td>
+          <td>
+            <button
+              className="btn btn-primary"
+              onClick={() => {
+                this.props.tangGiamSoLuong(maSP, true);
+              }}
+            >
+              +
+            </button>
+            {soLuong.toLocaleString()}
+            <button
+              className="btn btn-danger"
+              onClick={() => {
+                this.props.tangGiamSoLuong(maSP, false);
+              }}
+            >
+              -
+            </button>
+          </td>
           <td>{donGia.toLocaleString()}</td>
           <td>{(donGia * soLuong).toLocaleString()}</td>
           <td>
@@ -36,6 +54,16 @@ class GioHangRedux extends Component {
         </tr>
       );
     });
+  };
+
+  // Có thể binding trực tiếp vào jsx return luôn cũng được, 
+  // khỏi tạo thêm ở ngoài
+  tinhTongTien = () => {
+    return this.props.gioHang
+      .reduce((tongTien, spGioHang) => {
+        return (tongTien += spGioHang.soLuong * spGioHang.donGia);
+      }, 0)
+      .toLocaleString();
   };
 
   render() {
@@ -81,6 +109,13 @@ class GioHangRedux extends Component {
                   </tr>
                 </thead>
                 <tbody>{this.renderCart()}</tbody>
+                <tfoot>
+                  <tr>
+                    <td colSpan="4"></td>
+                    <td>Tổng tiền</td>
+                    <td>{this.tinhTongTien()}</td>
+                  </tr>
+                </tfoot>
               </table>
             </div>
             <div className="modal-footer">
@@ -113,6 +148,8 @@ const mapStateToProps = (state) => {
 // TODO Nếu trước đó có định nghĩa biến primitive props thì sao ?
 
 //Hàm đưa dữ liệu lên reducer
+// Tạo ra hàm dispatch trên props,
+// hàm dispatch luôn return về obj action luôn có thuộc tính TYPE và các data đi kèm
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -124,6 +161,19 @@ const mapDispatchToProps = (dispatch) => {
       };
       //Dùng phương thức dispatch redux cung cấp để đưa dữ liệu lên reducer
       console.log('maSP sẽ xóa: ', maSP);
+      dispatch(action);
+    },
+    tangGiamSoLuong: (maSP, tangGiam) => {
+      //tangGiam = true => Xử lý tăng - tangGiam = false => Xử lý giảm
+      //Tạo action để đưa dữ liệu lên reducer
+      let action = {
+        type: 'TANG_GIAM_SO_LUONG',
+        //Thuộc tính bắt buộc để biết chạy vào case nào trong tất cả reducer
+        maSP,
+        tangGiam,
+      };
+
+      //Đưa action lên reducer mỗi lần người dùng click vào
       dispatch(action);
     },
   };
