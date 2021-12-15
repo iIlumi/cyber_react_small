@@ -64,7 +64,7 @@ export default class ExerciseCart extends Component {
   xoaGioHang = (maSP) => {
     //Thực hiện tính năng xóa giỏ hàng
     // mutate dạng xóa thì OK ?
-    console.log('maSP sẻ xóa:', maSP)
+    console.log('maSP sẻ xóa:', maSP);
 
     // Từ maSP -> index trong Array State -> Xóa
     let index = this.state.gioHang.findIndex(
@@ -82,7 +82,7 @@ export default class ExerciseCart extends Component {
   };
 
   xoaGioHangIndex = (index) => {
-    console.log('index trong array state sẽ xóa:', index)
+    console.log('index trong array state sẽ xóa:', index);
     this.state.gioHang.splice(index, 1);
 
     this.setState({
@@ -90,6 +90,22 @@ export default class ExerciseCart extends Component {
       // Ẩu, splice mutate trực tiếp mà lại assign cùng lúc
       gioHang: this.state.gioHang,
     });
+  };
+
+  tinhTongSoLuong = () => {
+    //Dùng for
+    // let tongSoLuong = 0;
+    // for(let i=0;i<this.state.gioHang.length;i++){
+    //     let spGioHang = this.state.gioHang[i];
+    //     tongSoLuong += spGioHang.soLuong;
+    // }
+    // return tongSoLuong;
+    //Reduce
+    return this.state.gioHang
+      .reduce((tongSoLuong, spGioHang) => {
+        return (tongSoLuong += spGioHang.soLuong);
+      }, 0)
+      .toLocaleString();
   };
 
   render() {
@@ -103,7 +119,9 @@ export default class ExerciseCart extends Component {
             data-target="#cartModal"
           >
             <i className="fa fa-cart mr-5">
-              <i className="fa fa-cart-arrow-down"></i>(0) Giỏ hàng
+              {/* Có thể inline trực tiếp tính tổng vào, tùy người nhưng rối code */}
+              <i className="fa fa-cart-arrow-down"></i>({this.tinhTongSoLuong()}
+              ) Giỏ hàng
             </i>
           </span>
         </div>

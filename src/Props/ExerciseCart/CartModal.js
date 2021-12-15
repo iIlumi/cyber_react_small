@@ -42,6 +42,15 @@ export default class CartModal extends Component {
     });
   };
 
+  tinhTongTien = () => {
+    // let { gioHang } = this.props;
+    return this.props.gioHang
+      .reduce((tongTien, spGioHang) => {
+        return (tongTien += spGioHang.soLuong * spGioHang.donGia);
+      }, 0)
+      .toLocaleString();
+  };
+
   render() {
     return (
       // Modal b4-modal-default
@@ -84,6 +93,13 @@ export default class CartModal extends Component {
                   </tr>
                 </thead>
                 <tbody>{this.renderCart()}</tbody>
+                <tfoot>
+                  <tr>
+                    <td colSpan="4"></td>
+                    <td>Tổng tiền</td>
+                    <td>{this.tinhTongTien()}</td>
+                  </tr>
+                </tfoot>
               </table>
             </div>
             <div className="modal-footer">
