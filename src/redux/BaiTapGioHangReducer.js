@@ -7,6 +7,8 @@ const stateGioHang = {
 // action là 1 object gồm thuộc tính type và phần data tùy ý
 // truy cập vào object action như obj bt, switch action.type để xử lý
 // Đúng ra nên tạo state là deepcopy của stateGioHang từ đầu
+// TODO nếu là nested obj sẵn thì có deepcopy xuống cấp sâu nhất ko
+// Tự reset về commit này trước để test
 // -> return ko cần copy lại
 const BaiTapGioHangReducer = (state = stateGioHang, action) => {
   switch (action.type) {
@@ -29,6 +31,21 @@ const BaiTapGioHangReducer = (state = stateGioHang, action) => {
 
       return { ...state };
     }
+    // break;
+    // Vì return rồi nên ko cần break nữa -> unreachable code
+    case 'XOA_GIO_HANG': {
+      let gioHangCapNhat = [...state.gioHang];
+
+      //Tìm ra phần tử cần xóa dựa vào maSP
+      let index = gioHangCapNhat.findIndex((spGH) => spGH.maSP === action.maSP);
+      if (index !== -1) {
+        gioHangCapNhat.splice(index, 1);
+      }
+      //Cập nhật lại state giỏ hàng mới để component render lại
+      state.gioHang = gioHangCapNhat;
+      return { ...state };
+    }
+    // break;
     default:
       return { ...state };
   }

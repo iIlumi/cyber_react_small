@@ -23,7 +23,16 @@ class GioHangRedux extends Component {
           <td>{soLuong.toLocaleString()}</td>
           <td>{donGia.toLocaleString()}</td>
           <td>{(donGia * soLuong).toLocaleString()}</td>
-          <td></td>
+          <td>
+            <button
+              onClick={() => {
+                this.props.xoaGioHang(spGioHang.maSP);
+              }}
+              className="btn btn-danger"
+            >
+              Xóa
+            </button>
+          </td>
         </tr>
       );
     });
@@ -101,5 +110,23 @@ const mapStateToProps = (state) => {
     gioHang: state.stateGioHang.gioHang,
   };
 };
-export default connect(mapStateToProps)(GioHangRedux);
+// TODO Nếu trước đó có định nghĩa biến primitive props thì sao ?
+
+//Hàm đưa dữ liệu lên reducer
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    xoaGioHang: (maSP) => {
+      //Tạo action
+      let action = {
+        type: 'XOA_GIO_HANG',
+        maSP,
+      };
+      //Dùng phương thức dispatch redux cung cấp để đưa dữ liệu lên reducer
+      console.log('maSP sẽ xóa: ', maSP);
+      dispatch(action);
+    },
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(GioHangRedux);
 // Syntax của HOC
