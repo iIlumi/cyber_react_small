@@ -160,6 +160,14 @@ export default class NavbarRoot extends Component {
                 >
                   BT giỏ redux
                 </NavLink>
+                <NavLink
+                  activeClassName="activeNavItem"
+                  activeStyle={activeLinkStyle}
+                  className="dropdown-item"
+                  to="/btxucxac"
+                >
+                  BT xúc xắc
+                </NavLink>
 
                 {/* demo K2*/}
               </div>
