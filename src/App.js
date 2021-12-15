@@ -13,6 +13,7 @@ import DanhSachSanPham from './Props/DanhSachSanPham';
 import ExerciseCarStore from './Props/ExerciseCarStore/ExerciseCarStore';
 import DemoPropsChild from './Props/DemoPropsChild/DemoPropsChild';
 import ExerciseCart from './Props/ExerciseCart/ExerciseCart';
+import BaiTapGioHangRedux from './BaiTapGioHangRedux/BaiTapGioHangRedux';
 
 function App() {
   // Nếu gọi trực tiếp Prouct demo và console log prop thì có TH bị log 2 lần
@@ -35,6 +36,7 @@ function App() {
         <Route exact path="/btcarstore" component={ExerciseCarStore} />
         <Route exact path="/demopropschild" component={DemoPropsChild} />
         <Route exact path="/btgiohang" component={ExerciseCart} />
+        <Route exact path="/btgioredux" component={BaiTapGioHangRedux} />
 
         {/* demo */}
       </Switch>

@@ -41,6 +41,9 @@ export default class Home extends Component {
         <NavLink className="d-block" to="/btgiohang">
           BT giỏ hàng
         </NavLink>
+        <NavLink className="d-block" to="/btgioredux">
+          BT giỏ redux
+        </NavLink>
 
         {/* demo */}
       </div>
