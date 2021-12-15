@@ -2,7 +2,18 @@ import React, { Component } from 'react';
 import GioHangRedux from './GioHangRedux';
 import ProductListRedux from './ProductListRedux';
 
-export default class BaiTapGioHangRedux extends Component {
+//Import thư viện connect kết nối react component - redux store
+import { connect } from 'react-redux';
+
+class BaiTapGioHangRedux extends Component {
+  renderSoLuong = () => {
+    return this.props.gioHang
+      .reduce((tongSoLuong, spGH) => {
+        return (tongSoLuong += spGH.soLuong);
+      }, 0)
+      .toLocaleString();
+  };
+
   render() {
     return (
       <div className="container-fluid">
@@ -14,7 +25,8 @@ export default class BaiTapGioHangRedux extends Component {
             data-target="#cartModalRedux"
           >
             <i className="fa fa-cart mr-5">
-              <i className="fa fa-cart-arrow-down"></i>(0) Giỏ hàng
+              <i className="fa fa-cart-arrow-down"></i>({this.renderSoLuong()})
+              Giỏ hàng
             </i>
           </span>
         </div>
@@ -24,3 +36,12 @@ export default class BaiTapGioHangRedux extends Component {
     );
   }
 }
+
+//Viết hàm lấy giá trị state từ redux store về biến thành props component
+const mapStateToProps = (state) => {
+  return {
+    gioHang: state.stateGioHang.gioHang,
+  };
+};
+
+export default connect(mapStateToProps)(BaiTapGioHangRedux);
