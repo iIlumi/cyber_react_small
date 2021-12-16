@@ -168,6 +168,14 @@ export default class NavbarRoot extends Component {
                 >
                   BT xúc xắc
                 </NavLink>
+                <NavLink
+                  activeClassName="activeNavItem"
+                  activeStyle={activeLinkStyle}
+                  className="dropdown-item"
+                  to="/bttuxi"
+                >
+                  BT tù xì
+                </NavLink>
 
                 {/* demo K2*/}
               </div>
