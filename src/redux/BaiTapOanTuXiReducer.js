@@ -16,9 +16,23 @@ const BaiTapOanTuXiReducer = (state = stateDefault, action) => {
   state.mangDatCuoc = mangDatCuoc;
 
   switch (action.type) {
-    case "__DISPATCH_TYPE":
-      state.__dataChange = action.data;
+    case 'TU_XI_CHON': {
+      //Tạo ra mảng cược mới từ mảng cược cũ và action.maCuoc do người dùng truyền lên
+      state.mangDatCuoc = mangDatCuoc.map((item) => {
+        if (item.ma === action.data) {
+          return { ...item, datCuoc: true };
+        }
+        return { ...item, datCuoc: false };
+      });
       return state;
+    }
+    
+    case 'TU_XI_RANDOM': {
+      let soNgauNhien = Math.floor(Math.random() * 3);
+      let quanCuocNgauNhien = state.mangDatCuoc[soNgauNhien];
+      state.computer = { ...quanCuocNgauNhien };
+      return state;
+    }
     default:
       return state;
   }

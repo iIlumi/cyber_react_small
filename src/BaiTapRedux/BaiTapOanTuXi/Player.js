@@ -3,21 +3,18 @@ import { connect } from 'react-redux';
 
 export class Player extends Component {
   render() {
-    let decision = this.props.mangDatCuoc.find(
-      (item) => item.datCuoc === true
-    );
+    let decision = this.props.mangDatCuoc.find((item) => item.datCuoc === true);
     return (
       <div className="text-center playerGame">
         <div className="theThink">
           <img
-          style={{ transform: 'rotate(120deg)' }}
-          className="mt-3"
-          width={100}
-          height={100}
-          src={decision.hinhAnh}
-          alt={decision.hinhAnh}
-        />
-        
+            style={{ transform: 'rotate(120deg)' }}
+            className="mt-3"
+            width={100}
+            height={100}
+            src={decision.hinhAnh}
+            alt={decision.hinhAnh}
+          />
         </div>
         <div className="speech-bubble"></div>
         <img
@@ -38,7 +35,7 @@ export class Player extends Component {
 
             return (
               <div className="col-4" key={index}>
-                <button style={border} className="btnItem">
+                <button style={border} className="btnItem" onClick={() => { this.props.datCuoc(item.ma) }}>
                   <img
                     width={50}
                     height={50}
@@ -60,17 +57,15 @@ const mapStateToProps = (state) => {
   return { mangDatCuoc };
 };
 
-// const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
+  return {
+    datCuoc: (data) => {
+      dispatch({
+        type: 'TU_XI_CHON',
+        data,
+      });
+    },
+  };
+};
 
-//     return {
-//         __callBack : (data) => {
-//             dispatch({
-//                 type:__DISPATCH_TYPE ,
-//                 data
-//             })
-//         }
-//     }
-// }
-
-// export default connect(mapStateToProps, mapDispatchToProps)(Player)
-export default connect(mapStateToProps)(Player);
+export default connect(mapStateToProps, mapDispatchToProps)(Player);
