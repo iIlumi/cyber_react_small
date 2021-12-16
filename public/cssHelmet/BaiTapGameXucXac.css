@@ -27,3 +27,7 @@ url đường dẫn tuyệt đối
   border: 5px solid rgb(82, 238, 98);
   border-radius: 10px;
 }
+
+.text-debug{
+  font-size: 1.5rem;
+}

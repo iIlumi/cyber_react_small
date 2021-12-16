@@ -21,7 +21,7 @@ export class BaiTapGameXucXac extends Component {
         </div>
 
         <div className="row text-center mt-5">
-          <div className="col-5">
+          <div className="col-4 text-right">
             <button
               onClick={() => {
                 this.props.datCuoc(true);
@@ -31,10 +31,10 @@ export class BaiTapGameXucXac extends Component {
               TÀI
             </button>
           </div>
-          <div className="col-2">
+          <div className="col-4">
             <XucXac />
           </div>
-          <div className="col-5">
+          <div className="col-4 text-left">
             <button
               onClick={() => {
                 this.props.datCuoc(false);

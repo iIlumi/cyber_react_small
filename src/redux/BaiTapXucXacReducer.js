@@ -38,7 +38,20 @@ const BaiTapGameXucXacReducer = (state = stateDefault, action) => {
       }
       //Gán state mangXucXac = mangXucXacNgauNhien
       state.mangXucXac = mangXucXacNgauNhien;
-
+      //Xử lý tăng bàn chơi
+      state.tongSoBanChoi += 1;
+      //Xử lý số bàn thắng
+      let tongSoDiem = mangXucXacNgauNhien.reduce((tongDiem, xucXac) => {
+        return (tongDiem += xucXac.ma);
+      }, 0);
+      // Xét điều kiện để người dùng thắng game
+      // Viết tường minh So sánh boolean ra cũng ok
+      if (
+        (state.taiXiu && tongSoDiem > 11) ||
+        (!state.taiXiu && tongSoDiem <= 11)
+      ) {
+        state.soBanThang += 1;
+      }
       return state;
     default:
       return state;
