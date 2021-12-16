@@ -20,8 +20,25 @@ const BaiTapGameXucXacReducer = (state = stateDefault, action) => {
   //   console.log('action:', action);
 
   switch (action.type) {
-    case 'DAT_CUOC':
+    case 'BID_DICE':
       state.taiXiu = action.data;
+      return state;
+    case 'PLAY_DICE':
+      let mangXucXacNgauNhien = [];
+      for (let i = 0; i < 3; i++) {
+        //Mỗi lần lặp random ra số ngẫu nhiên từ 1 -> 6
+        let soNgauNhien = Math.floor(Math.random() * 6) + 1;
+        //Tạo ra 1 đối tượng xúc xắc từ số ngẫu nhiên
+        let xucXacNgauNhien = {
+          ma: soNgauNhien,
+          hinhAnh: `./img/gameXucXac/${soNgauNhien}.png`,
+        };
+        //Push vào mảng xúc xắc ngẫu nhiên
+        mangXucXacNgauNhien.push(xucXacNgauNhien);
+      }
+      //Gán state mangXucXac = mangXucXacNgauNhien
+      state.mangXucXac = mangXucXacNgauNhien;
+
       return state;
     default:
       return state;
