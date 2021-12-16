@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import BaiTapGioHangReducer from './BaiTapGioHangReducer';
+import BaiTapOanTuXiReducer from './BaiTapOanTuXiReducer';
 import BaiTapGameXucXacReducer from './BaiTapXucXacReducer';
 
 // store tổng của ứng dụng
@@ -9,6 +10,7 @@ const rootReducer = combineReducers({
   stateGioHang: BaiTapGioHangReducer,
   // Cú pháp es6 viết gọn lại khi thuộc tính trùng tên với tham số
   BaiTapGameXucXacReducer,
+  BaiTapOanTuXiReducer,
 });
 
 export default rootReducer;

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-export default class Computer extends Component {
+export class Computer extends Component {
   render() {
     return (
       <div className="text-center playerGame">
@@ -10,8 +11,8 @@ export default class Computer extends Component {
             className="mt-3"
             width={100}
             height={100}
-            src="./img/gameOanTuXi/bua.png"
-            alt="./img/gameOanTuXi/bua.png"
+            src={this.props.computer.hinhAnh}
+            alt={this.props.computer.hinhAnh}
           />
         </div>
         <div className="speech-bubble"></div>
@@ -24,3 +25,23 @@ export default class Computer extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  const { computer } = state.BaiTapOanTuXiReducer;
+  return { computer };
+};
+
+// const mapDispatchToProps = (dispatch) => {
+
+//     return {
+//         __callBack : (data) => {
+//             dispatch({
+//                 type:'__DISPATCH_TYPE' ,
+//                 data
+//             })
+//         }
+//     }
+// }
+
+// export default connect(mapStateToProps, mapDispatchToProps)(Computer)
+export default connect(mapStateToProps)(Computer);

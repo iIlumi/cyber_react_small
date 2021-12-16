@@ -39,9 +39,9 @@ export class XucXac extends Component {
          */}
         {(this.props.taiXiu && this.tongXucXac > 11) ||
         (!this.props.taiXiu && this.tongXucXac <= 11) ? (
-          <p className="text-success">Win</p>
+          <span className="text-success">Win</span>
         ) : (
-          <p className="text-danger">Lose</p>
+          <span className="text-danger">Lose</span>
         )}
       </p>
     );
