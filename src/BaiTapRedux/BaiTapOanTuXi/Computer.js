@@ -3,11 +3,27 @@ import { connect } from 'react-redux';
 
 export class Computer extends Component {
   render() {
+    //   Tạo animation mô phỏng item thay đổi khi đang random
+    // TODO animation ko mượt như bài mẫu ?
+    let keyframe = `@keyframes randomItem${Date.now()} {
+        0% {top: -40px;}
+        25% {top: 70px;}
+        50% {top: -40px;}
+        75% {top: 70px;}
+        100% {top: 0;}
+      }`
+
     return (
       <div className="text-center playerGame">
-        <div className="theThink">
+        <style>{keyframe}</style>
+        <div className="theThink" style={{ position: 'relative' }}>
           <img
-            style={{ transform: 'rotate(120deg)' }}
+            style={{
+              position: 'absolute',
+              left: '30%',
+              animation: `randomItem${Date.now()} 0.5s`,
+              transform: 'rotate(120deg)',
+            }}
             className="mt-3"
             width={100}
             height={100}

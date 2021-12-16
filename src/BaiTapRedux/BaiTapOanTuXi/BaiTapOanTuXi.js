@@ -46,9 +46,24 @@ export class BaiTapOanTuXi extends Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     playGame: () => {
-      dispatch({
-        type: 'TU_XI_RANDOM',
-      });
+      //   dispatch({
+      //     type: 'TU_XI_RANDOM',
+      //   });
+      let count = 0;
+      // Việc đặt tên hàm chỉ để gọi clear lại
+      // Bản thân khi viết ra là đã callback đã loop
+      // Có thể check bằng việc xóa clear nhưng vẫn để let
+      // -> infinite loop
+      let randomComputerItem = setInterval(() => {
+        dispatch({
+          type: 'TU_XI_RANDOM',
+        });
+        count++;
+        if (count > 10) {
+          //Dừng hàm setInterval
+          clearInterval(randomComputerItem);
+        }
+      }, 100);
     },
   };
 };

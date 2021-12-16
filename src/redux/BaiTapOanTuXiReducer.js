@@ -12,6 +12,11 @@ const stateDefault = {
 
 const BaiTapOanTuXiReducer = (state = stateDefault, action) => {
   const mangDatCuoc = [...state.mangDatCuoc];
+  // Chú ý state mới nhưng computer cũ ?
+  // Tuy nhiên obj computer ko phải State lớn của chương trình
+  // -> ko cần copy từ đầu vì ít tương tác
+  // obj computer thực chất sinh ra từ random của mảng
+  // deepcopy mảng là đủ, random bóc ra thì vẫn là copy mới
   state = { ...state };
   state.mangDatCuoc = mangDatCuoc;
 
@@ -26,11 +31,15 @@ const BaiTapOanTuXiReducer = (state = stateDefault, action) => {
       });
       return state;
     }
-    
+
     case 'TU_XI_RANDOM': {
       let soNgauNhien = Math.floor(Math.random() * 3);
       let quanCuocNgauNhien = state.mangDatCuoc[soNgauNhien];
-      state.computer = { ...quanCuocNgauNhien };
+      // state.computer = { ...quanCuocNgauNhien };
+      // Ở đây quân cược ngẫu nhiên lấy ra từ mảng đã copy trước
+      // -> hiển nhiên sẽ ko cần copy dup nữa
+      state.computer = quanCuocNgauNhien;
+
       return state;
     }
     default:
