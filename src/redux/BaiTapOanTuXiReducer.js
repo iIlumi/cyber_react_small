@@ -42,6 +42,29 @@ const BaiTapOanTuXiReducer = (state = stateDefault, action) => {
 
       return state;
     }
+
+    case 'END_GAME': {
+      // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
+      // Assigning to new variable names
+      let { ma: maPlayer } = state.mangDatCuoc.find(
+        (item) => item.datCuoc === true
+      );
+      let { ma: maComputer } = state.computer;
+      if (maPlayer === maComputer) {
+        state.ketQua = 'hòa nhau !!!';
+      } else if (
+        (maPlayer === 'bua' && maComputer === 'keo') ||
+        (maPlayer === 'bao' && maComputer === 'bua') ||
+        (maPlayer === 'keo' && maComputer === 'bao')
+      ) {
+        state.soBanThang += 1;
+        state.ketQua = "I'm iron man, i love you 3000 !!!";
+      } else {
+        state.ketQua = 'thua sml !!!';
+      }
+      state.soBanChoi += 1;
+      return state;
+    }
     default:
       return state;
   }

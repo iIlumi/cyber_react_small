@@ -54,6 +54,8 @@ const mapDispatchToProps = (dispatch) => {
       // Bản thân khi viết ra là đã callback đã loop
       // Có thể check bằng việc xóa clear nhưng vẫn để let
       // -> infinite loop
+
+      //   https://stackoverflow.com/questions/9136261/how-to-make-a-setinterval-stop-after-some-time-or-after-a-number-of-actions
       let randomComputerItem = setInterval(() => {
         dispatch({
           type: 'TU_XI_RANDOM',
@@ -62,6 +64,12 @@ const mapDispatchToProps = (dispatch) => {
         if (count > 10) {
           //Dừng hàm setInterval
           clearInterval(randomComputerItem);
+
+          // Clear xong thì dispatch xử lý KQ SAU KHI kết thúc animation
+
+          dispatch({
+            type: 'END_GAME',
+          });
         }
       }, 100);
     },
