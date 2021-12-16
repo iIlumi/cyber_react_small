@@ -6,7 +6,10 @@ export class ThongTinTroChoi extends Component {
     return (
       <div>
         <div className="display-4">
-          BẠN CHỌN: <span className="text-danger"> {this.props.taiXiu}</span>
+          BẠN CHỌN:{' '}
+          <span className="text-danger">
+            {this.props.taiXiu ? 'TÀI' : 'XỈU'}
+          </span>
         </div>
         <div className="display-4">
           BÀN THẮNG:{' '}

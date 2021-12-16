@@ -10,10 +10,21 @@ const stateDefault = {
 };
 
 const BaiTapGameXucXacReducer = (state = stateDefault, action) => {
+  const mangXucXac = [...state.mangXucXac];
+  state = { ...state };
+  state.mangXucXac = mangXucXac;
+  // Switch về bài giỏ hàng sẽ vẫn thấy reducer dispatch lên
+  // -> dispatch vào tất cả reducer con !!
+  //   Tuy nhiên ở các reducer khác thì stateDefault sẽ khác
+  //   Nhưng swtich case nếu trùng thì vẫn nhãy vô !! -> cẨn thận
+  //   console.log('action:', action);
 
   switch (action.type) {
+    case 'DAT_CUOC':
+      state.taiXiu = action.data;
+      return state;
     default:
-      return { ...state };
+      return state;
   }
 };
 
