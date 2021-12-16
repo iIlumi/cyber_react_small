@@ -50,6 +50,9 @@ export default class Home extends Component {
         <NavLink className="d-block" to="/bttuxi">
           BT Tù xì
         </NavLink>
+        <NavLink className="d-block" to="/btdatve">
+          BT đặt vé
+        </NavLink>
 
         {/* demo */}
       </div>
