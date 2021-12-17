@@ -1,9 +1,23 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Helmet } from 'react-helmet';
+import HangGhe from './HangGhe';
 // import './BaiTapBookingTicket.css';
 import ThongTinDatGhe from './ThongTinDatGhe';
+import danhSachGheData from '../../Data/danhSachGhe.json';
 
 export default class BaiTapBookingTicket extends Component {
+  renderHangGhe = () => {
+    return danhSachGheData.map((hangGhe, index) => {
+      return (
+        //   https://reactjs.org/docs/fragments.html#short-syntax
+        // Vì đây là hàm map -> dùng Fragment để giảm bớt số div sinh ra,
+        <Fragment key={index}>
+          <HangGhe hangGhe={hangGhe} soHangGhe={index} />
+        </Fragment>
+      );
+    });
+  };
+
   render() {
     return (
       <div
@@ -40,11 +54,14 @@ export default class BaiTapBookingTicket extends Component {
                   className="mt-2"
                   style={{
                     display: 'flex',
-                    flexDirection: 'row',
+                    flexDirection: 'column',
                     justifyContent: 'center',
+                    alignItems: 'center',
                   }}
                 >
                   <div className="screen"></div>
+                  {/* Nên bọc 1 div lớn bên ngoài lại, render là 1 hàm map sẵn nên ko làm được, hoặc phải break ra ko cần thiết rối code */}
+                  <div className="container-fluid">{this.renderHangGhe()}</div>
                 </div>
               </div>
               <div className="col-4">
