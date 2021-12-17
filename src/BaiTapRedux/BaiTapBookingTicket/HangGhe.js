@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import { datGheCheatAction } from '../../redux/actions/BaiTapDatVeActions';
 
 export class HangGhe extends Component {
   // Ghế là các button có thể click được
@@ -24,10 +25,9 @@ export class HangGhe extends Component {
       // css cheat bằng cách dùng cả ghế đang và ghế đã cùng lúc !!
       //   -> ghế đã đặt phải đặt sau để có ưu tiên cao hơn đang đặt
       let indexGheDangDat = this.props.danhSachGheDangDat.findIndex(
-          // (gheDangDat) => gheDangDat.soGhe === ghe.soGhe
-          // Cheat sol:
-          (gheDangDat) => gheDangDat === ghe.soGhe
-        
+        // (gheDangDat) => gheDangDat.soGhe === ghe.soGhe
+        // Cheat sol:
+        (gheDangDat) => gheDangDat === ghe.soGhe
       );
       if (indexGheDangDat !== -1) {
         cssGheDangDat = 'gheDangChon';
@@ -102,17 +102,15 @@ export class HangGhe extends Component {
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
 // Assigning to new variable names
 const mapStateToProps = (state) => {
-  const { danhSachGheDangDat_cheat: danhSachGheDangDat  } = state.BaiTapDatVeReducer;
+  const { danhSachGheDangDat_cheat: danhSachGheDangDat } =
+    state.BaiTapDatVeReducer;
   return { danhSachGheDangDat };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     datGheCheat: (data) => {
-      dispatch({
-        type: 'DAT_GHE_CHEAT',
-        data,
-      });
+      dispatch(datGheCheatAction(data));
     },
   };
 };

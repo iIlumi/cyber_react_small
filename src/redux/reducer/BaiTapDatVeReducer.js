@@ -1,3 +1,5 @@
+import { DAT_GHE_CHEAT, HUY_GHE } from "../types/BaiTapDatVeType";
+
 const stateDefault = {
   danhSachGheDangDat_cheat: [],
 };
@@ -28,7 +30,7 @@ const BaiTapDatVeReducer = (state = stateDefault, action) => {
   state.danhSachGheDangDat_cheat = danhSachGheDangDat_cheat;
 
   switch (action.type) {
-    case 'DAT_GHE_CHEAT':
+    case DAT_GHE_CHEAT:
       //khi người dùng click Ghế đang đặt đã có trong mảng => remove đi
       //khi người dùng click Ghế đang đặt chưa có trong mảng => push vào
       //   Ở đây có thể push cả obj ghế lên nhưng vì bài này ko dùng tới
@@ -45,6 +47,10 @@ const BaiTapDatVeReducer = (state = stateDefault, action) => {
       }
       console.log('danhSachGheDangDat_cheat:', danhSachGheDangDat_cheat);
       return state;
+      
+    case HUY_GHE:
+      return state;
+
     default:
       return state;
   }
