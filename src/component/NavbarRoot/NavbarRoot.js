@@ -184,6 +184,14 @@ export default class NavbarRoot extends Component {
                 >
                   BT đặt vé
                 </NavLink>
+                <NavLink
+                  activeClassName="activeNavItem"
+                  activeStyle={activeLinkStyle}
+                  className="dropdown-item"
+                  to="/btcontext"
+                >
+                  BT Context
+                </NavLink>
 
                 {/* demo K2*/}
               </div>

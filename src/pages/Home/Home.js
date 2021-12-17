@@ -53,6 +53,9 @@ export default class Home extends Component {
         <NavLink className="d-block" to="/btdatve">
           BT đặt vé
         </NavLink>
+        <NavLink className="d-block" to="/btcontext">
+          BT Context - model
+        </NavLink>
 
         {/* demo */}
       </div>
