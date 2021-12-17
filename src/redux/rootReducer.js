@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import BaiTapDatVeReducer from './BaiTapDatVeReducer';
 import BaiTapGioHangReducer from './BaiTapGioHangReducer';
 import BaiTapOanTuXiReducer from './BaiTapOanTuXiReducer';
 import BaiTapGameXucXacReducer from './BaiTapXucXacReducer';
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   // Cú pháp es6 viết gọn lại khi thuộc tính trùng tên với tham số
   BaiTapGameXucXacReducer,
   BaiTapOanTuXiReducer,
+  BaiTapDatVeReducer,
 });
 
 export default rootReducer;
