@@ -6,12 +6,15 @@ export default class ModelItem extends Component {
     // Đặc điểm của Context-Provider là ko cần connectStateToProps và mapDispatch
     // Tiện code nhưng lại phải wrap Consummer bù
     // Cần kết hợp PureComponent vì tính chất của setState sẽ render bất chấp mọi component thường
+    // console.log('-->ModelItem loaded') 
+
     let { img, name, age, id, like } = this.props.modelItem ;
     return (
       <ExModelListContext.Consumer>
         {(value) => {
           // Value là reducer local bao gồm state và các method trong Provider
-          console.log('value:', value)
+          // console.log('Consumer - ModelItem loaded')
+          // console.log('value:', value)
           return (
             <div className="card text-white bg-default text-dark">
               <img
@@ -30,7 +33,7 @@ export default class ModelItem extends Component {
                   }}
                   className="card-text"
                   onClick={() => {
-                    // value.setActiveModel(modelItem.id);
+                    value.setActiveModel(id);
                   }}
                 >
                   {like} <i style={{ color: 'red' }} className="fa fa-heart"></i>

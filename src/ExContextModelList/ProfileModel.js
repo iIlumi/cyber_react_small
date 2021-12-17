@@ -4,11 +4,14 @@ import { ExModelListContext } from '../ContextDemo/_Context/ExModelListContext';
 export default class ProfileModel extends Component {
   // Bọc Consummer lại ở vị trí cần render data từ local-store Context-Provider
   render() {
+    console.log('ProfileModel loaded');
     return (
       <div>
         <h3>Thông tin Idol</h3>
         <ExModelListContext.Consumer>
           {(value) => {
+            console.log('Consummer ProfileModel loaded');
+
             let activeModel = value.modelListState.find(
               (model) => model.active === true
             );
