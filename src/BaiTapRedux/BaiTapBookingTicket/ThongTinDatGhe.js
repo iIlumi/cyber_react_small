@@ -8,6 +8,9 @@ import { connect } from 'react-redux';
 // Hay kiểu lưu mặc định để gọi trong page đó
 
 import danhSachGheData from '../../Data/danhSachGhe.json';
+// Ko cần ĐN dispatch mà import thẳng action cần send hoặc code chay luôn
+import { huyGheAction } from '../../redux/actions/BaiTapDatVeActions';
+// import { HUY_GHE } from '../../redux/types/BaiTapDatVeType';
 
 export class ThongTinDatGhe extends Component {
   /**
@@ -16,6 +19,9 @@ export class ThongTinDatGhe extends Component {
    * Làm demo cho vui -> Rút kinh nghiệm data store ko nên là primitive mà luôn giữ ít nhất ở obj hoặc đẹp nhât là arr of obj -> [ {} , {} , ... {} ]
    *
    * -> tuy nhiên có thể gom es6 style lại mặc dù nhiều step
+   * 1 lần duyệt qua mảng đặt, 1 lần duyệt qua từng obj của server , 1 lần duyệt từng row trong mỗi obj => n^3 !!!
+   * Gọn được data trên store nhưng đánh đổi quá lớn
+   * Data trên store có thể chọn lọc thuộc tính cần lưu, cùng lắm chỉ *n lên tùy cần bao nhiêu thuộc tính xử lý giao diện -> thêm dần, mở rộng được
    *
    */
   //  https://stackoverflow.com/questions/23359173/javascript-reduce-an-empty-array
@@ -62,8 +68,35 @@ export class ThongTinDatGhe extends Component {
                 <th></th>
               </tr>
             </thead>
-            <tbody>
-
+            <tbody className="text-warning">
+              {/* 1 hàm đơn giản nhưng cấu trúc dữ liệu trên store kém thì hậu quả kinh khủng 
+              Ghế đang đặt hiện chỉ có duy nhất mã ghế
+              gheDangDat trong map chỉ là string chứa maGhe do cấu trúc dữ lei65u hiện tại như vậy -> bad
+              */}
+              {this.props.danhSachGheDangDat.map((gheDangDat, index) => {
+                return (
+                  <tr key={index}>
+                    <td>{gheDangDat}</td>
+                    <td>
+                      {danhSachGheData
+                        .find(
+                          (hangGhe) => hangGhe.hang === gheDangDat.charAt(0)
+                        )
+                        .danhSachGhe.find((ghe) => ghe.soGhe === gheDangDat)
+                        .gia.toLocaleString()}
+                    </td>
+                    <td>
+                      <button
+                        onClick={() => {
+                          this.props.dispatch(huyGheAction(gheDangDat));
+                        }}
+                      >
+                        Hủy
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
             <tfoot>
               <tr className="text-warning">
@@ -71,15 +104,13 @@ export class ThongTinDatGhe extends Component {
                 <td>Tổng tiền</td>
                 <td>
                   {/* {this.testFunc()} */}
-                  {this.props.danhSachGheDangDat.reduce(
-                    (tongTien, maGheDat) => {
-                      tongTien += danhSachGheData
+                  {this.props.danhSachGheDangDat
+                    .reduce((tongTien, maGheDat) => {
+                      return (tongTien += danhSachGheData
                         .find((hangGhe) => hangGhe.hang === maGheDat.charAt(0))
-                        .danhSachGhe.find((ghe) => ghe.soGhe === maGheDat).gia;
-                      return 0;
-                    },
-                    0
-                  )}
+                        .danhSachGhe.find((ghe) => ghe.soGhe === maGheDat).gia);
+                    }, 0)
+                    .toLocaleString()}
                   {/* no cheat - solution */}
                   {/* 
                   {this.props.danhSachGheDangDat
@@ -112,15 +143,18 @@ const mapStateToProps = (state) => {
   return { danhSachGheDangDat };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    __callBack: (data) => {
-      dispatch({
-        type: '__DISPATCH_TYPE',
-        data,
-      });
-    },
-  };
-};
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     huyGhe: (data) => {
+//       dispatch({
+//         type: HUY_GHE,
+//         data,
+//       });
+//     },
+//   };
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ThongTinDatGhe);
+// HOC -> khi đã connect redux sẽ tự sinh method dispatch
+export default connect(mapStateToProps)(ThongTinDatGhe);
+
+// Nếu truyền thêm thma số dispatch vô nữa có thể gây lỗi ?
