@@ -196,6 +196,32 @@ export default class NavbarRoot extends Component {
                 {/* demo K2*/}
               </div>
             </li>
+            <li className="nav-item dropup">
+              <button
+                type="button"
+                className="btn btn-secondary dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Khóa 3
+              </button>
+
+              <div className="dropdown-menu" aria-labelledby="dropdownId">
+                <NavLink
+                  activeClassName="activeNavItem"
+                  activeStyle={activeLinkStyle}
+                  className="dropdown-item"
+                  to="/formvalidate"
+                >
+                  Form Validation
+                </NavLink>
+
+                
+
+                {/* demo K3*/}
+              </div>
+            </li>
             {/* demo*/}
           </ul>
         </div>

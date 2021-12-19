@@ -23,7 +23,7 @@ export default class ExerciseCart extends Component {
     // }
     // es6 Using Object Destructuring and Property Shorthand
     // https://stackoverflow.com/questions/17781472/how-to-get-a-subset-of-a-javascript-objects-properties?page=1&tab=active#tab-top
-    let spGioHang = 222222(({ maSP, tenSP, hinhAnh, giaBan }) => ({
+    let spGioHang = (({ maSP, tenSP, hinhAnh, giaBan }) => ({
       maSP,
       tenSP,
       hinhAnh,

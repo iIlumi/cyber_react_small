@@ -56,6 +56,10 @@ export default class Home extends Component {
         <NavLink className="d-block" to="/btcontext">
           BT Context - model
         </NavLink>
+        <h5>Khóa 3 </h5>
+        <NavLink className="d-block" to="/formvalidate">
+          Form validate
+        </NavLink>
 
         {/* demo */}
       </div>

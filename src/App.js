@@ -18,6 +18,7 @@ import BaiTapGameXucXac from './BaiTapRedux/BaiTapGameXucXac';
 import BaiTapOanTuXi from './BaiTapRedux/BaiTapOanTuXi/BaiTapOanTuXi';
 import BaiTapBookingTicket from './BaiTapRedux/BaiTapBookingTicket/BaiTapBookingTicket';
 import ExContextModelList from './ExContextModelList/ExContextModelList';
+import UserProfile from './FormValidation/UserProfile/UserProfile';
 
 function App() {
   // Nếu gọi trực tiếp Prouct demo và console log prop thì có TH bị log 2 lần
@@ -45,6 +46,8 @@ function App() {
         <Route exact path="/bttuxi" component={BaiTapOanTuXi} />
         <Route exact path="/btdatve" component={BaiTapBookingTicket} />
         <Route exact path="/btcontext" component={ExContextModelList} />
+        {/* Khóa 3 */}
+        <Route exact path="/formvalidate" component={UserProfile} />
 
         {/* demo */}
       </Switch>
