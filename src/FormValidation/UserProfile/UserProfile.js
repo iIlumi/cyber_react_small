@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet';
+// import Swal from 'sweetalert2'
+// import {Swal} from 'https://cdn.jsdelivr.net/npm/sweetalert2@11'
 
 export default class UserProfile extends Component {
   // KEY:  google form , google input style css
@@ -26,7 +28,7 @@ export default class UserProfile extends Component {
       email: '',
       passWord: '',
       passWordConfirm: '',
-      errFirstName: '',
+      // errFirstName: '',
     },
     errors: {
       firstName: '',
@@ -35,7 +37,7 @@ export default class UserProfile extends Component {
       email: '',
       passWord: '',
       passWordConfirm: '',
-      errFirstName: '',
+      // errFirstName: '',
     },
   };
 
@@ -44,19 +46,22 @@ export default class UserProfile extends Component {
     let newValue = { ...this.state.values, [name]: value };
     let newErrors = { ...this.state.errors };
 
+    // Kiễm tra lỗi -> nếu sai thì error bằng chuỗi , đúng else thì rỗng
     // Kiểm tra tất cả các field phải khác rỗng
     if (value.trim() === '') {
       newErrors[name] = name + ' is required !';
     } else {
       newErrors[name] = '';
     }
-    
+
     // KEYWORD: regex email js ,pattern regex email ... /
+    // https://stackoverflow.com/questions/47277133/disable-unnecessary-escape-character-no-useless-escape
     if (type === 'email') {
       const regexEmail =
+        //eslint-disable-next-line
         /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-        if (!regexEmail.test(value)) {
+      if (!regexEmail.test(value)) {
         //Nếu email không hợp lệ
         newErrors[name] = name + 'is invalid !';
       } else {
@@ -92,6 +97,40 @@ export default class UserProfile extends Component {
     });
   };
 
+  handleSubmit = (event) => {
+    // console.log(window.Swal)
+    const Swal = window.Swal;
+    // this.window là undefined
+    //Cản trình duyệt submit reload lại trang
+    event.preventDefault();
+    let { values, errors } = this.state;
+    // Tuy nhiên khi này form ko load lại nhưng vẫn submit data
+    // Khi vừa load lên thì error và data đều rỗng nên phải xét cả 2 dk
+    //Biến xác định form hợp lệ
+    let valid = true;
+    for (let key in values) {
+      if (values[key] === '') {
+        valid = false;
+      }
+    }
+    for (let key in errors) {
+      if (errors[key] !== '') {
+        valid = false;
+      }
+    }
+    if (!valid) {
+      alert('Dữ liệu chưa hợp lệ');
+      return;
+    }
+    alert('Thành công');
+    Swal.fire({
+      title: 'Error!',
+      text: 'Do you want to continue',
+      icon: 'error',
+      confirmButtonText: 'Cool',
+    });
+  };
+
   render() {
     return (
       // Return về form, ko phải div
@@ -104,6 +143,7 @@ export default class UserProfile extends Component {
         }}
       >
         <form
+          onSubmit={this.handleSubmit}
           style={{
             fontSize:
               'font-family: "Google Sans", "Noto Sans Myanmar UI", arial, sans-serif',
@@ -113,6 +153,10 @@ export default class UserProfile extends Component {
         >
           <Helmet>
             <link rel="stylesheet" href="/cssHelmet/UserProfile.css" />
+            {/* <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js" /> */}
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" />
+            {/* Link cdn mới đúng trong docs */}
+            {/* {console.log(window.Swal)} */}
           </Helmet>
           <h1 className="text-center mt-0 mb-5">User Profile</h1>
           <div className="row">
@@ -237,7 +281,14 @@ export default class UserProfile extends Component {
             </div>
           </div>
         </form>
+        {/* <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" /> */}
+
+        {/* 
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"/>  
+        Đặt trong head như guide
+        */}
       </div>
+      // Phải để trong Helmet đẩy lên head, trong docs cũng để trên head
     );
   }
 }
