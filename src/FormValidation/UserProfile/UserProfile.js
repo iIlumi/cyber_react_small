@@ -5,17 +5,40 @@ export default class UserProfile extends Component {
   // KEY:  google form , google input style css
   /**
    * Search keyword, tìm, copy, mod
-   * Copy code mẫu vào và run thử coi ra được ko
    * Edit lại
    *
    * Google Material Design Input Boxes
    * https://codepen.io/benftwc/pen/VpQjNL
    *
-   *
    */
+
+  state = {
+    firstName: '',
+    lastName: '',
+    userName: '',
+    email: '',
+    passWord: '',
+    passWordConfirm: '',
+  };
+
+  handleChangeValue = (event) => {
+    let { name, value } = event.target;
+
+    this.setState(
+      // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#computed_property_names
+      // https://reactjs.org/docs/forms.html#handling-multiple-inputs
+      {
+        [name]: value,
+      },
+      () => {
+        console.log(this.state);
+      }
+    );
+  };
+
   render() {
     return (
-      // Return về orm, ko phải div
+      // Return về form, ko phải div
       <div
         className="container-fluid"
         style={{
@@ -39,7 +62,16 @@ export default class UserProfile extends Component {
           <div className="row">
             <div className="col-6">
               <div className="group">
-                <input type="text" name="firstName" required />
+                {/* 
+                Khác onChange js -> click ra khỏi ô mới nhận, 
+                React sẽ lấy khi keyDown-Up là 1 lần change
+                */}
+                <input
+                  type="text"
+                  name="firstName"
+                  required
+                  onChange={(e) => this.handleChangeValue(e)}
+                />
                 <span className="highlight" />
                 <span className="bar" />
                 <label>firstName</label>
@@ -47,7 +79,12 @@ export default class UserProfile extends Component {
             </div>
             <div className="col-6">
               <div className="group">
-                <input type="text" name="lastName" required />
+                <input
+                  type="text"
+                  name="lastName"
+                  required
+                  onChange={(event) => this.handleChangeValue(event)}
+                />
                 <span className="highlight" />
                 <span className="bar" />
                 <label>lastName</label>
@@ -55,7 +92,15 @@ export default class UserProfile extends Component {
             </div>
             <div className="col-12">
               <div className="group">
-                <input type="text" name="userName" required />
+                <input
+                  type="text"
+                  name="userName"
+                  required
+                  onChange={(e) => {
+                    // vì ko có return nên {} và () và ko có ngoặc như nhau
+                    this.handleChangeValue(e);
+                  }}
+                />
                 <span className="highlight" />
                 <span className="bar" />
                 <label>userName</label>
@@ -63,7 +108,12 @@ export default class UserProfile extends Component {
             </div>
             <div className="col-12">
               <div className="group">
-                <input type="text" name="email" required />
+                <input
+                  type="text"
+                  name="email"
+                  required
+                  onChange={this.handleChangeValue}
+                />
                 <span className="highlight" />
                 <span className="bar" />
                 <label>email</label>
@@ -71,7 +121,12 @@ export default class UserProfile extends Component {
             </div>
             <div className="col-6">
               <div className="group">
-                <input name="passWord" type="password" required />
+                <input
+                  name="passWord"
+                  type="password"
+                  required
+                  onChange={this.handleChangeValue}
+                />
                 <span className="highlight" />
                 <span className="bar" />
                 <label>password</label>
@@ -79,7 +134,12 @@ export default class UserProfile extends Component {
             </div>
             <div className="col-6">
               <div className="group">
-                <input name="passWordConfirm" type="password" required />
+                <input
+                  name="passWordConfirm"
+                  type="password"
+                  required
+                  onChange={this.handleChangeValue}
+                />
                 <span className="highlight" />
                 <span className="bar" />
                 <label>passwordConfirm</label>
