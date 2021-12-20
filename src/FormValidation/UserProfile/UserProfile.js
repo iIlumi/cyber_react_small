@@ -12,28 +12,52 @@ export default class UserProfile extends Component {
    *
    */
 
+  /**
+   * Để xử lý hiển thị lỗi nếu đặt là errFirstName thì xử lý code mệt
+   * Ngoài ra ta đang set tên obj trùng với thuộc tính name trong input, giờ có err sẽ khác đi -> lại phải thêm xử lý bỏ từ err ...
+   * Xử lý binding thêm phức tạp
+   */
+  // State default là rỗng đồng thời cũng để reset lại sau khí submit nên khi binding value vô sẽ hiện placeholder
   state = {
-    firstName: '',
-    lastName: '',
-    userName: '',
-    email: '',
-    passWord: '',
-    passWordConfirm: '',
+    values: {
+      firstName: '',
+      lastName: '',
+      userName: '',
+      email: '',
+      passWord: '',
+      passWordConfirm: '',
+      errFirstName: '',
+    },
+    errors: {
+      firstName: '',
+      lastName: '',
+      userName: '',
+      email: '',
+      passWord: '',
+      passWordConfirm: '',
+      errFirstName: '',
+    },
   };
 
   handleChangeValue = (event) => {
-    let { name, value } = event.target;
+    let { name, value, type } = event.target;
 
-    this.setState(
+    /**
+     *  Chú ý vì setState là bất đồng bộ nên tránh tạo 2 setState riêng
+     * Sẽ lỗi ko kiểm soát
+     * Khi binding xong thì phải kèm setState update liền nếu ko sẽ luôn bị stateDefault đè hiển thị rỗng
+     */
+    this.setState({
       // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#computed_property_names
       // https://reactjs.org/docs/forms.html#handling-multiple-inputs
-      {
-        [name]: value,
-      },
-      () => {
-        console.log(this.state);
-      }
-    );
+      // {
+      //   [name]: value,
+      // },
+      // () => {
+      //   console.log(this.state);
+      // }
+      values: { ...this.state.values, [name]: value },
+    });
   };
 
   render() {
@@ -67,20 +91,25 @@ export default class UserProfile extends Component {
                 React sẽ lấy khi keyDown-Up là 1 lần change
                 */}
                 <input
+                  value={this.state.values.firstName}
                   type="text"
-                  name="firstName"
                   required
+                  name="firstName"
                   onChange={(e) => this.handleChangeValue(e)}
                 />
                 <span className="highlight" />
                 <span className="bar" />
                 <label>firstName</label>
+                <span className="text text-danger">
+                  {this.state.errors.firstName}
+                </span>
               </div>
             </div>
             <div className="col-6">
               <div className="group">
                 <input
                   type="text"
+                  value={this.state.values.lastName}
                   name="lastName"
                   required
                   onChange={(event) => this.handleChangeValue(event)}
@@ -88,11 +117,15 @@ export default class UserProfile extends Component {
                 <span className="highlight" />
                 <span className="bar" />
                 <label>lastName</label>
+                <span className="text text-danger">
+                  {this.state.errors.lastName}
+                </span>
               </div>
             </div>
             <div className="col-12">
               <div className="group">
                 <input
+                  value={this.state.values.userName}
                   type="text"
                   name="userName"
                   required
@@ -104,12 +137,16 @@ export default class UserProfile extends Component {
                 <span className="highlight" />
                 <span className="bar" />
                 <label>userName</label>
+                <span className="text text-danger">
+                  {this.state.errors.userName}
+                </span>
               </div>
             </div>
             <div className="col-12">
               <div className="group">
                 <input
-                  type="text"
+                  value={this.state.values.email}
+                  type="email"
                   name="email"
                   required
                   onChange={this.handleChangeValue}
@@ -117,32 +154,45 @@ export default class UserProfile extends Component {
                 <span className="highlight" />
                 <span className="bar" />
                 <label>email</label>
+                <span className="text text-danger">
+                  {this.state.errors.email}
+                </span>
               </div>
             </div>
             <div className="col-6">
               <div className="group">
                 <input
+                  value={this.state.values.passWord}
                   name="passWord"
                   type="password"
                   required
+                  autoComplete="off"
                   onChange={this.handleChangeValue}
                 />
                 <span className="highlight" />
                 <span className="bar" />
                 <label>password</label>
+                <span className="text text-danger">
+                  {this.state.errors.passWord}
+                </span>
               </div>
             </div>
             <div className="col-6">
               <div className="group">
                 <input
+                  value={this.state.values.passWordConfirm}
                   name="passWordConfirm"
                   type="password"
                   required
+                  autoComplete="off"
                   onChange={this.handleChangeValue}
                 />
                 <span className="highlight" />
                 <span className="bar" />
                 <label>passwordConfirm</label>
+                <span className="text text-danger">
+                  {this.state.errors.passWordConfirm}
+                </span>
               </div>
             </div>
             <div className="col-12">
