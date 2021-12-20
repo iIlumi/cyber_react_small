@@ -97,6 +97,16 @@ export default class UserProfile extends Component {
     });
   };
 
+  /**
+   * TODO
+   * popup profile show cả password và paswword confirm
+   * content chứa tên dạng camel case lộ tên biến , ẩu
+   * -> fix bằng cách add DK check, mapping khi tạo jsx binding
+   * nhập password confirm trước sau đó nhập pass sau thì match vẫn lỗi
+   * 2 pass match, sau đó đổi lại pass mà ko sửa pass confirm vẫn OK
+   * -> chưa two-way binding
+   * Submit xong ko reset lại toàn bộ field!!
+   */
   handleSubmit = (event) => {
     // console.log(window.Swal)
     const Swal = window.Swal;
@@ -108,26 +118,48 @@ export default class UserProfile extends Component {
     // Khi vừa load lên thì error và data đều rỗng nên phải xét cả 2 dk
     //Biến xác định form hợp lệ
     let valid = true;
+    // Tạo biến lưu data cho Swal pop
+    let profileContent = '';
+    let errorsContent = '';
     for (let key in values) {
+      // Thật ra việt bắt rỗng đã được thuộc tính required trong input của html bắt dùm, tuy nhiên nếu kỹ vẫn có thể thêm ở đây
+      // test thử bằng comment first name lại
+      // -> layout sẽ thay đổi để so sánh
+      // Khi dùng autofill, gõ first name trước sau đó xóa để trống -> error sẽ bị push liên tục sinh ra 2 firstName erroe !!
       if (values[key] === '') {
         valid = false;
+        errorsContent += `
+                <p class="text-left"> <b class="text-danger">${key} is invalid!</b></p>`;
+        valid = false;
       }
+      profileContent += `
+                <p class="text-left"> <b>${key}:</b> ${values[key]}</p>
+            `;
     }
     for (let key in errors) {
       if (errors[key] !== '') {
+        errorsContent += `
+                <p class="text-left"> <b class="text-danger">${key} is invalid!</b></p>`;
         valid = false;
       }
     }
     if (!valid) {
-      alert('Dữ liệu chưa hợp lệ');
+      //alert('Dữ liệu chưa hợp lệ');
+      Swal.fire({
+        title: 'Your profile!',
+        html: errorsContent,
+        icon: 'error', //success, error, warning, question
+        confirmButtonText: 'OK',
+      });
       return;
     }
-    alert('Thành công');
+    //alert('Thành công');
+    // Truyền binding / string / jsx bình thường
     Swal.fire({
-      title: 'Error!',
-      text: 'Do you want to continue',
-      icon: 'error',
-      confirmButtonText: 'Cool',
+      title: 'Your profile!',
+      html: profileContent,
+      icon: 'success', //success, error, warning, question
+      confirmButtonText: 'OK',
     });
   };
 
@@ -157,6 +189,7 @@ export default class UserProfile extends Component {
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" />
             {/* Link cdn mới đúng trong docs */}
             {/* {console.log(window.Swal)} */}
+            {/* Dạng Swal React là viết cả component riêng, ko cần dùng */}
           </Helmet>
           <h1 className="text-center mt-0 mb-5">User Profile</h1>
           <div className="row">
@@ -169,7 +202,7 @@ export default class UserProfile extends Component {
                 <input
                   value={this.state.values.firstName}
                   type="text"
-                  required
+                  // required
                   name="firstName"
                   onChange={(e) => this.handleChangeValue(e)}
                 />
