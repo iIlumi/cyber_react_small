@@ -41,7 +41,37 @@ export default class UserProfile extends Component {
 
   handleChangeValue = (event) => {
     let { name, value, type } = event.target;
+    let newValue = { ...this.state.values, [name]: value };
+    let newErrors = { ...this.state.errors };
 
+    // Kiểm tra tất cả các field phải khác rỗng
+    if (value.trim() === '') {
+      newErrors[name] = name + ' is required !';
+    } else {
+      newErrors[name] = '';
+    }
+    
+    // KEYWORD: regex email js ,pattern regex email ... /
+    if (type === 'email') {
+      const regexEmail =
+        /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+        if (!regexEmail.test(value)) {
+        //Nếu email không hợp lệ
+        newErrors[name] = name + 'is invalid !';
+      } else {
+        newErrors[name] = ''; //Nếu email hợp lệ
+      }
+    }
+
+    // Check passwordConfirm đã gõ giống passWord chưa
+    if (name === 'passWordConfirm') {
+      if (value === newValue['passWord']) {
+        newErrors[name] = '';
+      } else {
+        newErrors[name] = name + ' is invalid';
+      }
+    }
     /**
      *  Chú ý vì setState là bất đồng bộ nên tránh tạo 2 setState riêng
      * Sẽ lỗi ko kiểm soát
@@ -56,7 +86,9 @@ export default class UserProfile extends Component {
       // () => {
       //   console.log(this.state);
       // }
-      values: { ...this.state.values, [name]: value },
+
+      values: newValue,
+      errors: newErrors,
     });
   };
 
