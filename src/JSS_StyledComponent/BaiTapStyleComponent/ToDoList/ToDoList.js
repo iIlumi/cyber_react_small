@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ContainerToDo } from '../../ComponentsToDoList/ContainerToDoList';
 import { ThemeProvider } from 'styled-components';
-import { ToDoListDarkTheme } from '../../Themes/ToDoListDarkTheme';
+// import { ToDoListDarkTheme } from '../../Themes/ToDoListDarkTheme';
 // import { ToDoListLightTheme } from '../../Themes/ToDoListLightTheme';
 // import {ToDoListPrimaryTheme} from '../../Themes/ToDoListPrimaryTheme';
 import { Dropdown } from '../../ComponentsToDoList/Dropdown';
@@ -14,14 +14,15 @@ import { TextField } from '../../ComponentsToDoList/TextField';
 // Nhưng cũng có thể ĐN jsx từ 2 moduel jss basic để cho gọn, đẩy restProps vào Input
 import { Button } from '../../ComponentsToDoList/Button';
 import { connect } from 'react-redux';
-import { addTaskAction } from '../../../redux/actions/ToDoListActions';
+import { addTaskAction, changeThemeAction } from '../../../redux/actions/ToDoListActions';
+import { arrTheme } from '../../../JSS_StyledComponent/Themes/ThemeManager';
 import {
   Table,
   Tr,
   Th,
   Thead,
-  Td,
-  Tbody,
+  Td, // eslint-disable-line
+  Tbody, // eslint-disable-line
 } from '../../ComponentsToDoList/Table';
 
 class ToDoList extends Component {
@@ -96,14 +97,32 @@ class ToDoList extends Component {
   /**
    * Ở đây vì chỉ có 1 ô input nhập taskname nên sẽ viết inline cho gọn
    */
+
+  //Viết hàm render theme import ThemeManger
+  // https://styled-components.com/docs/faqs#why-am-i-getting-a-warning-about-several-instances-of-module-on-the-page
+  renderTheme = () => {
+    return arrTheme.map((theme, index) => {
+      return (
+        <option value={theme.id} key={index}>
+          {theme.name}
+        </option>
+      );
+    });
+  };
+
   render() {
     return (
       <ThemeProvider theme={this.props.themeToDoList}>
         <ContainerToDo className="w-50">
-          <Dropdown>
-            <option>Dark theme</option>
-            <option>Light theme</option>
-            <option>Primary theme</option>
+          <Dropdown
+            onChange={(e) => {
+              let { value } = e.target;
+              //Dispatch value lên reducer
+
+              this.props.dispatch(changeThemeAction(value));
+            }}
+          >
+            {this.renderTheme()}
           </Dropdown>
           <Heading3>To do list</Heading3>
           <TextField
@@ -138,9 +157,9 @@ class ToDoList extends Component {
               };
 
               // console.log(newTask)
-            //   Log ở đây thì oK vì ko có async gì như setState
-            // Tuy nhiên có thể log chặn cuối ở dispatch trước khi gửi như trong file ở redux action
-            // Nếu muốn log khi redux nhận được hay chưa thì có thêm 2 vị trí,khi vừa load và sau khi switch
+              //   Log ở đây thì oK vì ko có async gì như setState
+              // Tuy nhiên có thể log chặn cuối ở dispatch trước khi gửi như trong file ở redux action
+              // Nếu muốn log khi redux nhận được hay chưa thì có thêm 2 vị trí,khi vừa load và sau khi switch
               //Đưa task object lên redux thông qua phương thức dispatch
 
               this.props.dispatch(addTaskAction(newTask));
