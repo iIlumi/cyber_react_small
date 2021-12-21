@@ -13,6 +13,7 @@ import { TextField } from '../../ComponentsToDoList/TextField';
 // Có thể add riêng Label và Input trong module textField để xài
 // Nhưng cũng có thể ĐN jsx từ 2 moduel jss basic để cho gọn, đẩy restProps vào Input
 import { Button } from '../../ComponentsToDoList/Button';
+import { connect } from 'react-redux';
 import {
   Table,
   Tr,
@@ -21,10 +22,51 @@ import {
   Td,
   Tbody,
 } from '../../ComponentsToDoList/Table';
-export default class ToDoList extends Component {
+
+class ToDoList extends Component {
+  renderTaskToDo = () => {
+    return this.props.taskList
+      .filter((task) => task.done)
+      .map((task, index) => {
+        return (
+          <Tr key={index}>
+            <Th style={{ verticalAlign: 'middle' }}>{task.taskName}</Th>
+            <Th className="text-right">
+              <Button className="ml-1">
+                <i className="fa fa-edit"></i>
+              </Button>
+              <Button className="ml-1">
+                <i className="fa fa-check"></i>
+              </Button>
+              <Button className="ml-1">
+                <i className="fa fa-trash"></i>
+              </Button>
+            </Th>
+          </Tr>
+        );
+      });
+  };
+
+  renderTaskCompleted = () => {
+    return this.props.taskList
+      .filter((task) => !task.done)
+      .map((task, index) => {
+        return (
+          <Tr key={index}>
+            <Th style={{ verticalAlign: 'middle' }}>{task.taskName}</Th>
+            <Th className="text-right">
+              <Button className="ml-1">
+                <i className="fa fa-trash"></i>
+              </Button>
+            </Th>
+          </Tr>
+        );
+      });
+  };
+
   render() {
     return (
-      <ThemeProvider theme={ToDoListDarkTheme}>
+      <ThemeProvider theme={this.props.themeToDoList}>
         <ContainerToDo className="w-50">
           <Dropdown>
             <option>Dark theme</option>
@@ -43,57 +85,11 @@ export default class ToDoList extends Component {
           <Heading3>Task to do</Heading3>
           {/* verticalAlign trong css gốc để top sẵn, vì ko mu6o1n mod vào nên inline lại ở jsx */}
           <Table>
-            <Thead>
-              <Tr>
-                <Th style={{ verticalAlign: 'middle' }}>Task name</Th>
-                <Th className="text-right">
-                  <Button className="ml-1">
-                    <i className="fa fa-edit"></i>
-                  </Button>
-                  <Button className="ml-1">
-                    <i className="fa fa-check"></i>
-                  </Button>
-                  <Button className="ml-1">
-                    <i className="fa fa-trash"></i>
-                  </Button>
-                </Th>
-              </Tr>
-              <Tr>
-                <Th style={{ verticalAlign: 'middle' }}>Task name</Th>
-                <Th className="text-right">
-                  <Button className="ml-1">
-                    <i className="fa fa-edit"></i>
-                  </Button>
-                  <Button className="ml-1">
-                    <i className="fa fa-check"></i>
-                  </Button>
-                  <Button className="ml-1">
-                    <i className="fa fa-trash"></i>
-                  </Button>
-                </Th>
-              </Tr>
-            </Thead>
+            <Thead>{this.renderTaskToDo()}</Thead>
           </Table>
           <Heading3>Task completed</Heading3>
           <Table>
-            <Thead>
-              <Tr>
-                <Th style={{ verticalAlign: 'middle' }}>Task name</Th>
-                <Th className="text-right">
-                  <Button className="ml-1">
-                    <i className="fa fa-trash"></i>
-                  </Button>
-                </Th>
-              </Tr>
-              <Tr>
-                <Th style={{ verticalAlign: 'middle' }}>Task name</Th>
-                <Th className="text-right">
-                  <Button className="ml-1">
-                    <i className="fa fa-trash"></i>
-                  </Button>
-                </Th>
-              </Tr>
-            </Thead>
+            <Thead>{this.renderTaskCompleted()}</Thead>
           </Table>
 
           {/* ======================================= */}
@@ -181,3 +177,10 @@ export default class ToDoList extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  const { themeToDoList, taskList } = state.ToDoListReducer;
+  return { themeToDoList, taskList };
+};
+
+export default connect(mapStateToProps)(ToDoList);
