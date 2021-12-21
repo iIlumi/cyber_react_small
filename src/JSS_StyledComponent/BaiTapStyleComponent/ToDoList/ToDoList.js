@@ -14,6 +14,7 @@ import { TextField } from '../../ComponentsToDoList/TextField';
 // Nhưng cũng có thể ĐN jsx từ 2 moduel jss basic để cho gọn, đẩy restProps vào Input
 import { Button } from '../../ComponentsToDoList/Button';
 import { connect } from 'react-redux';
+import { addTaskAction } from '../../../redux/actions/ToDoListActions';
 import {
   Table,
   Tr,
@@ -24,6 +25,12 @@ import {
 } from '../../ComponentsToDoList/Table';
 
 class ToDoList extends Component {
+  // Vì bài đơn giản chỉ có 1 field nên lược bỏ cấu trúc state tối đa
+  //   State trong Component và state React khác nhau, khi dispatch sẽ tạo thêm trường
+  state = {
+    taskName: '',
+  };
+
   renderTaskToDo = () => {
     return this.props.taskList
       .filter((task) => task.done)
@@ -64,6 +71,31 @@ class ToDoList extends Component {
       });
   };
 
+  //   Nhắc lại kiến thức form Validation
+  //   https://reactjs.org/docs/react-component.html#setstate
+  //   Sau khi setState thành công sẽ có 1 callBack được gọi
+  // vì t/c bất đồng bộ nên muốn log thì truyền callback vào đây
+
+  //   let {name,value} = e.target.value;
+  // this.setState({
+  //     [name]:value
+  // })
+  /**
+   * ko dùng cú pháp tương tự formValidate được vì target ko có trường taskname mà chỉ có value, ko destruc được luôn
+   */
+  handleChange = (e) => {
+    this.setState(
+      {
+        taskName: e.target.value,
+      },
+      () => {
+        console.log('this.state in setState API:', this.state)
+      }
+    );
+  };
+  /**
+   * Ở đây vì chỉ có 1 ô input nhập taskname nên sẽ viết inline cho gọn
+   */
   render() {
     return (
       <ThemeProvider theme={this.props.themeToDoList}>
@@ -74,8 +106,39 @@ class ToDoList extends Component {
             <option>Primary theme</option>
           </Dropdown>
           <Heading3>To do list</Heading3>
-          <TextField label="Task name" className="w-50" />
-          <Button className="ml-2">
+          <TextField
+            onChange={(e) => {
+              //   this.setState({
+              //     taskName: e.target.value,
+              //   });
+
+              this.handleChange(e);
+              console.log('this.state in TextField onChange', this.state);
+              // Log this state ở đây là sai vì setState bất đồng bộ
+              // -> chưa up kịp
+            }}
+            label="Task name"
+            className="w-50"
+          />
+          <Button
+            onClick={() => {
+              //Lấy thông tin người dùng nhập vào từ input
+              let { taskName } = this.state;
+
+              //Tạo ra 1 task object
+              let newTask = {
+                id: Date.now(),
+                taskName,
+                done: false,
+              };
+
+              // console.log(newTask)
+              //Đưa task object lên redux thông qua phương thức dispatch
+
+              this.props.dispatch(addTaskAction(newTask));
+            }}
+            className="ml-2"
+          >
             <i className="fa fa-plus"></i> Add task
           </Button>
           <Button className="ml-2">
