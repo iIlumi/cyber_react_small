@@ -216,6 +216,14 @@ export default class NavbarRoot extends Component {
                 >
                   Form Validation
                 </NavLink>
+                <NavLink
+                  activeClassName="activeNavItem"
+                  activeStyle={activeLinkStyle}
+                  className="dropdown-item"
+                  to="/todolist"
+                >
+                  To Do List
+                </NavLink>
 
                 
 

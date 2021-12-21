@@ -60,6 +60,9 @@ export default class Home extends Component {
         <NavLink className="d-block" to="/formvalidate">
           Form validate
         </NavLink>
+        <NavLink className="d-block" to="/todolist">
+          To Do List
+        </NavLink>
 
         {/* demo */}
       </div>
