@@ -5,6 +5,7 @@ import {
   CHANGE_THEME,
   DELETE_TASK,
   DONE_TASK,
+  EDIT_TASK,
 } from '../types/ToDoListTypes';
 const stateDefault = {
   themeToDoList: ToDoListDarkTheme,
@@ -14,6 +15,8 @@ const stateDefault = {
     { id: 'task-3', taskName: 'task 3', done: true },
     { id: 'task-4', taskName: 'task 4', done: false },
   ],
+  taskEdit: { id: 'task-1', taskName: 'task 1 editing', done: false },
+  //taskEdit: null,
 };
 // Anonymous export
 // export default (state = stateDefault, action) => {
@@ -80,7 +83,7 @@ const ToDoListReducer = (state = stateDefault, action) => {
       if (index !== -1) {
         taskList[index].done = true;
       }
-    //   Ở đây cũng có thể dùng map trực tiếp và so sánh bên trong luôn
+      //   Ở đây cũng có thể dùng map trực tiếp và so sánh bên trong luôn
       // state.taskList = taskListUpdate;
       // return { ...state, taskList: taskListUpdate }
       return state;
@@ -99,6 +102,10 @@ const ToDoListReducer = (state = stateDefault, action) => {
         ...state,
         taskList: taskList.filter((task) => task.id !== action.taskId),
       };
+    }
+
+    case EDIT_TASK: {
+      return { ...state, taskEdit: action.task };
     }
 
     default:

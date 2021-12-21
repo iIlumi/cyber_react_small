@@ -19,6 +19,7 @@ import {
   changeThemeAction,
   deleteTaskAction,
   doneTaskAction,
+  editTaskAction,
 } from '../../../redux/actions/ToDoListActions';
 import { arrTheme } from '../../../JSS_StyledComponent/Themes/ThemeManager';
 import {
@@ -45,7 +46,12 @@ class ToDoList extends Component {
           <Tr key={index}>
             <Th style={{ verticalAlign: 'middle' }}>{task.taskName}</Th>
             <Th className="text-right">
-              <Button className="ml-1">
+              <Button
+                onClick={() => {
+                  this.props.dispatch(editTaskAction(task));
+                }}
+                className="ml-1"
+              >
                 <i className="fa fa-edit"></i>
               </Button>
               <Button
@@ -130,6 +136,17 @@ class ToDoList extends Component {
     });
   };
 
+  // Cách fix 1
+  //Life cycle version 16 nhận vào props mới được thực thi trước render
+  componentWillReceiveProps(newProps) {
+    console.log('this.props', this.props);
+    console.log('newProps', newProps);
+    this.setState({
+      taskName: newProps.taskEdit.taskName,
+    });
+  }
+  // Kết hợp với việc chuyển value = {this.state.taskName}
+
   render() {
     return (
       <ThemeProvider theme={this.props.themeToDoList}>
@@ -146,6 +163,17 @@ class ToDoList extends Component {
           </Dropdown>
           <Heading3>To do list</Heading3>
           <TextField
+            value={
+              this.state.taskName
+              // this.props.taskEdit.taskName
+              /**
+               * dạng trên là binding data từ props từ store truyền vào
+               * Khi gõ thì đồng thời onChange kick setState -> giao diện render lại -> lại lấy value từ store chưa được commit
+               * Có thể bât callback trong setState để quan sát
+               * -> Thực chất chỉ cần bind lại value của state hiện tại là OK
+               * -> 1 dạng 2 way
+               */
+            }
             onChange={(e) => {
               this.setState(
                 {
@@ -289,8 +317,8 @@ class ToDoList extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { themeToDoList, taskList } = state.ToDoListReducer;
-  return { themeToDoList, taskList };
+  const { themeToDoList, taskList, taskEdit } = state.ToDoListReducer;
+  return { themeToDoList, taskList, taskEdit };
 };
 
 export default connect(mapStateToProps)(ToDoList);
