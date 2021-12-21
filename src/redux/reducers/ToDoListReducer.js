@@ -1,6 +1,11 @@
 import { arrTheme } from '../../JSS_StyledComponent/Themes/ThemeManager';
 import { ToDoListDarkTheme } from '../../JSS_StyledComponent/Themes/ToDoListDarkTheme';
-import { ADD_TASK, CHANGE_THEME } from '../types/ToDoListTypes';
+import {
+  ADD_TASK,
+  CHANGE_THEME,
+  DELETE_TASK,
+  DONE_TASK,
+} from '../types/ToDoListTypes';
 const stateDefault = {
   themeToDoList: ToDoListDarkTheme,
   taskList: [
@@ -18,6 +23,7 @@ const ToDoListReducer = (state = stateDefault, action) => {
   const taskList = [...state.taskList];
   state = { ...state };
   state.taskList = taskList;
+  console.log('action:', action);
 
   switch (action.type) {
     case ADD_TASK: {
@@ -66,9 +72,40 @@ const ToDoListReducer = (state = stateDefault, action) => {
       return state;
     }
 
+    case DONE_TASK: {
+      //Click vào button check => dispatch lên action có taskID
+      // let taskListUpdate = [...state.taskList];
+      //Từ task id tìm ra task đó ở vị trí nào trong mảng tiến hành cập nhật lại thuộc tính done = true. Và cập nhật lại state của redux
+      let index = taskList.findIndex((task) => task.id === action.taskId);
+      if (index !== -1) {
+        taskList[index].done = true;
+      }
+    //   Ở đây cũng có thể dùng map trực tiếp và so sánh bên trong luôn
+      // state.taskList = taskListUpdate;
+      // return { ...state, taskList: taskListUpdate }
+      return state;
+    }
+
+    case DELETE_TASK: {
+      // let taskListUpdate = [...state.taskList];
+      // //Gán lại giá trị cho mang taskListUpdate = chính nó nhưng filter không có taskId đó
+      // taskListUpdate = taskListUpdate.filter(task => task.id !== action.taskId);
+
+      // return {...state,taskList:taskListUpdate}
+
+      // Vì taskList là const nên ko reassign vậy được mà phải tạo copy lần nữa, gán lại attribute
+      //   taskList = state.taskList.filter((task) => task.id !== action.taskId);
+      return {
+        ...state,
+        taskList: taskList.filter((task) => task.id !== action.taskId),
+      };
+    }
+
     default:
       return state;
   }
 };
 
 export default ToDoListReducer;
+
+// TODO -> chuyển done thành undone

@@ -14,7 +14,12 @@ import { TextField } from '../../ComponentsToDoList/TextField';
 // Nhưng cũng có thể ĐN jsx từ 2 moduel jss basic để cho gọn, đẩy restProps vào Input
 import { Button } from '../../ComponentsToDoList/Button';
 import { connect } from 'react-redux';
-import { addTaskAction, changeThemeAction } from '../../../redux/actions/ToDoListActions';
+import {
+  addTaskAction,
+  changeThemeAction,
+  deleteTaskAction,
+  doneTaskAction,
+} from '../../../redux/actions/ToDoListActions';
 import { arrTheme } from '../../../JSS_StyledComponent/Themes/ThemeManager';
 import {
   Table,
@@ -43,10 +48,20 @@ class ToDoList extends Component {
               <Button className="ml-1">
                 <i className="fa fa-edit"></i>
               </Button>
-              <Button className="ml-1">
+              <Button
+                onClick={() => {
+                  this.props.dispatch(doneTaskAction(task.id));
+                }}
+                className="ml-1"
+              >
                 <i className="fa fa-check"></i>
               </Button>
-              <Button className="ml-1">
+              <Button
+                onClick={() => {
+                  this.props.dispatch(deleteTaskAction(task.id));
+                }}
+                className="ml-1"
+              >
                 <i className="fa fa-trash"></i>
               </Button>
             </Th>
@@ -63,7 +78,12 @@ class ToDoList extends Component {
           <Tr key={index}>
             <Th style={{ verticalAlign: 'middle' }}>{task.taskName}</Th>
             <Th className="text-right">
-              <Button className="ml-1">
+              <Button
+                onClick={() => {
+                  this.props.dispatch(deleteTaskAction(task.id));
+                }}
+                className="ml-1"
+              >
                 <i className="fa fa-trash"></i>
               </Button>
             </Th>

@@ -1,4 +1,4 @@
-import { ADD_TASK, CHANGE_THEME } from '../types/ToDoListTypes';
+import { ADD_TASK, CHANGE_THEME, DELETE_TASK, DONE_TASK } from '../types/ToDoListTypes';
 
 // rxaction snippet
 // Nên đổi tên biến payload lại để dễ destruct về sau
@@ -21,3 +21,14 @@ export const changeThemeAction = (themeId) => {
     themeId,
   };
 };
+
+// Cú pháp dùng ngoặc tròn, hiểu ngầm là return luôn
+export const doneTaskAction = (taskId) => ({
+  type: DONE_TASK,
+  taskId,
+});
+
+export const deleteTaskAction = (taskId) => ({
+  type: DELETE_TASK,
+  taskId,
+});
