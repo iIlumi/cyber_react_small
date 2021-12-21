@@ -33,7 +33,7 @@ class ToDoList extends Component {
 
   renderTaskToDo = () => {
     return this.props.taskList
-      .filter((task) => task.done)
+      .filter((task) => !task.done)
       .map((task, index) => {
         return (
           <Tr key={index}>
@@ -56,7 +56,7 @@ class ToDoList extends Component {
 
   renderTaskCompleted = () => {
     return this.props.taskList
-      .filter((task) => !task.done)
+      .filter((task) => task.done)
       .map((task, index) => {
         return (
           <Tr key={index}>
@@ -76,7 +76,7 @@ class ToDoList extends Component {
   //   Sau khi setState thành công sẽ có 1 callBack được gọi
   // vì t/c bất đồng bộ nên muốn log thì truyền callback vào đây
 
-  //   let {name,value} = e.target.value;
+  //   let {name,value} = e.target;
   // this.setState({
   //     [name]:value
   // })
@@ -89,7 +89,7 @@ class ToDoList extends Component {
         taskName: e.target.value,
       },
       () => {
-        console.log('this.state in setState API:', this.state)
+        console.log('this.state in setState API:', this.state);
       }
     );
   };
@@ -108,11 +108,16 @@ class ToDoList extends Component {
           <Heading3>To do list</Heading3>
           <TextField
             onChange={(e) => {
-              //   this.setState({
-              //     taskName: e.target.value,
-              //   });
+              this.setState(
+                {
+                  taskName: e.target.value,
+                }
+                // , () => {
+                //   console.log('this.state in setState API:', this.state);
+                // }
+              );
 
-              this.handleChange(e);
+              //   this.handleChange(e);
               console.log('this.state in TextField onChange', this.state);
               // Log this state ở đây là sai vì setState bất đồng bộ
               // -> chưa up kịp
@@ -133,6 +138,9 @@ class ToDoList extends Component {
               };
 
               // console.log(newTask)
+            //   Log ở đây thì oK vì ko có async gì như setState
+            // Tuy nhiên có thể log chặn cuối ở dispatch trước khi gửi như trong file ở redux action
+            // Nếu muốn log khi redux nhận được hay chưa thì có thêm 2 vị trí,khi vừa load và sau khi switch
               //Đưa task object lên redux thông qua phương thức dispatch
 
               this.props.dispatch(addTaskAction(newTask));
