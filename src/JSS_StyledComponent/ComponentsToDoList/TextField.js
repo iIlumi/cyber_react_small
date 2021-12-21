@@ -1,4 +1,5 @@
-import React, { Fragment } from 'react';
+// import React, { Fragment } from 'react';
+import React from 'react';
 
 import styled from 'styled-components';
 
