@@ -136,16 +136,33 @@ class ToDoList extends Component {
     });
   };
 
-  // Cách fix 1
+  // Cách fix 1 version cu 16.3 về trước
   //Life cycle version 16 nhận vào props mới được thực thi trước render
-  componentWillReceiveProps(newProps) {
-    console.log('this.props', this.props);
-    console.log('newProps', newProps);
-    this.setState({
-      taskName: newProps.taskEdit.taskName,
-    });
-  }
+  // componentWillReceiveProps(newProps) {
+  //   console.log('this.props', this.props);
+  //   console.log('newProps', newProps);
+  //   this.setState({
+  //     taskName: newProps.taskEdit.taskName,
+  //   });
+  // }
   // Kết hợp với việc chuyển value = {this.state.taskName}
+
+  // Cách 2: - version 16.4 +
+  // //Lifecycle tĩnh không truy xuất được trỏ this
+  // static getDerivedStateFromProps(newProps, currentState) {
+  //   //newProps: là props mới, props cũ là this.props (không truy xuất được)
+  //   //currentState: ứng với state hiện tại this.state
+
+  //   //hoặc trả về state mới (this.state)
+  //   let newState = { ...currentState, taskName: newProps.taskEdit.taskName };
+  //   return newState;
+
+  //   //trả về null state giữ nguyên
+  //   // return null;
+  // }
+  /**
+   * Nếu quan sát kỹ sẽ thấy getDerivedStateFromProps xuất hiện cả sau khi setState, khác với willReceiveProps  -> lại loop -> ko thay thế dc ở TH này
+   */
 
   render() {
     return (
@@ -172,6 +189,7 @@ class ToDoList extends Component {
                * Có thể bât callback trong setState để quan sát
                * -> Thực chất chỉ cần bind lại value của state hiện tại là OK
                * -> 1 dạng 2 way
+               * Tuy nhiên cần phải can thiệt vào life cycle để đẩy props được redux (mapStatetoProps) vào va biến nó thành state
                */
             }
             onChange={(e) => {
@@ -313,6 +331,27 @@ class ToDoList extends Component {
         </ContainerToDo>
       </ThemeProvider>
     );
+  }
+
+  // Vấn đề hiện tại là ta phải setProps vào state được
+  //Đây là lifecycle trả về props cũ và state cũ của component trước khi render (lifecycle này chạy sau render)
+  componentDidUpdate(prevProps, prevState) {
+    //So sánh nếu như props trước đó (taskEdit trước mà khác taskEdit hiện tại thì mình mới setState)
+    // console.log("didUpdate")
+    // this.setState({
+    //   taskName: this.props.taskEdit.taskName,
+    // });
+    // Gọi trực tiếp như trên sẽ gây ra loop vô tận -> phải set điều kiện
+    // Thực chất khi vừa mount, chưa vô chế độ edit thì ô input chưa biết phải đổ props nào(do redux connect) vào state (lúc này mới mount xong)
+    // Ở đây ta tham chiếu qua id của task vì vậy cần sinh id unique, ko nên dùng index vì có thể bị thay đổi do pagination, delete task
+    // Sau lần render đầu tiên, can thiệp vào lifeCycle và check ĐK, đổ 1 lần duy nhất
+
+    // Redux State to Component State !!
+    if (prevProps.taskEdit.id !== this.props.taskEdit.id) {
+      this.setState({
+        taskName: this.props.taskEdit.taskName,
+      });
+    }
   }
 }
 
