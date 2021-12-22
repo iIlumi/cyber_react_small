@@ -20,6 +20,7 @@ import {
   deleteTaskAction,
   doneTaskAction,
   editTaskAction,
+  updateTaskAction,
 } from '../../../redux/actions/ToDoListActions';
 import { arrTheme } from '../../../JSS_StyledComponent/Themes/ThemeManager';
 import {
@@ -234,7 +235,12 @@ class ToDoList extends Component {
           >
             <i className="fa fa-plus"></i> Add task
           </Button>
-          <Button className="ml-2">
+          <Button
+            onClick={() => {
+              this.props.dispatch(updateTaskAction(this.state.taskName));
+            }}
+            className="ml-2"
+          >
             <i className="fa fa-upload"></i> Update task
           </Button>
           <hr />

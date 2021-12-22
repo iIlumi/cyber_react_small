@@ -6,6 +6,7 @@ import {
   DELETE_TASK,
   DONE_TASK,
   EDIT_TASK,
+  UPDATE_TASK,
 } from '../types/ToDoListTypes';
 const stateDefault = {
   themeToDoList: ToDoListDarkTheme,
@@ -23,6 +24,9 @@ const stateDefault = {
 // Tuy nhiên ESLint sẽ báo lỗi ko cho export ẩn danh
 
 const ToDoListReducer = (state = stateDefault, action) => {
+  // console.log('Object.is(state , stateDefault):', Object.is(state , stateDefault))
+  // Tại sao lần loop thứ 2 đã false ?
+
   const taskList = [...state.taskList];
   state = { ...state };
   state.taskList = taskList;
@@ -106,6 +110,31 @@ const ToDoListReducer = (state = stateDefault, action) => {
 
     case EDIT_TASK: {
       return { ...state, taskEdit: action.task };
+    }
+
+    case UPDATE_TASK: {
+      // console.log(action.taskName)
+      //Chỉnh sửa lại taskName của taskEdit
+      // state.taskEdit = { ...state.taskEdit, taskName: action.taskName };
+      state.taskEdit.taskName = action.taskName;
+
+      // Chú ý taskEdit hiện tại ko deepCopy nhưng bản thân obj state kèm tham chiếu của arr đã bị thay đổi -> đã có sự thay đổi sẵn nên chắc chắn sẽ render lại (chỉ cần 1 tham chiếu nested bên trong thay đổi là đủ)
+      // Nếu destruct primitive thì value giống nhau nên ko tính)
+
+      // obj.taskEdit ở đây giống biến temp, đúng ra vẫn phải deepCopy nhưng vì temp nên chỉnh sửa, tham chiếu edit copy loạn xạ luôn
+
+      // let taskListUpdate = [...state.taskList];
+      let index = taskList.findIndex((task) => task.id === state.taskEdit.id);
+
+      console.log(index);
+
+      if (index !== -1) {
+        taskList[index] = state.taskEdit;
+      }
+
+      // state.taskList = taskListUpdate;
+
+      return state;
     }
 
     default:

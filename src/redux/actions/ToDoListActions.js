@@ -1,4 +1,4 @@
-import { ADD_TASK, CHANGE_THEME, DELETE_TASK, DONE_TASK, EDIT_TASK } from '../types/ToDoListTypes';
+import { ADD_TASK, CHANGE_THEME, DELETE_TASK, DONE_TASK, EDIT_TASK, UPDATE_TASK } from '../types/ToDoListTypes';
 
 // rxaction snippet
 // Nên đổi tên biến payload lại để dễ destruct về sau
@@ -36,4 +36,9 @@ export const deleteTaskAction = (taskId) => ({
 export const editTaskAction = (task) => ({
   type: EDIT_TASK,
   task,
+});
+
+export const updateTaskAction = (taskName) => ({
+  type: UPDATE_TASK,
+  taskName,
 });
