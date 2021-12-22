@@ -16,7 +16,7 @@ const stateDefault = {
     { id: 'task-3', taskName: 'task 3', done: true },
     { id: 'task-4', taskName: 'task 4', done: false },
   ],
-  taskEdit: { id: 'task-1', taskName: 'task 1 editing', done: false },
+  taskEdit: { id: '-1', taskName: '', done: false },
   //taskEdit: null,
 };
 // Anonymous export
@@ -133,6 +133,7 @@ const ToDoListReducer = (state = stateDefault, action) => {
       }
 
       // state.taskList = taskListUpdate;
+      state.taskEdit = { id: '-1', taskName: '', done: false };
 
       return state;
     }

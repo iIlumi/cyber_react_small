@@ -37,6 +37,7 @@ class ToDoList extends Component {
   //   State trong Component và state React khác nhau, khi dispatch sẽ tạo thêm trường
   state = {
     taskName: '',
+    disabled: true,
   };
 
   renderTaskToDo = () => {
@@ -49,7 +50,16 @@ class ToDoList extends Component {
             <Th className="text-right">
               <Button
                 onClick={() => {
-                  this.props.dispatch(editTaskAction(task));
+                  this.setState(
+                    {
+                      disabled: false,
+                    },
+                    () => {
+                      this.props.dispatch(editTaskAction(task));
+                    }
+                  );
+                  // vì tính chất bất đồng bộ nên khi để dispatch ở ngoài có thể gây lỗi render ngẫu nhiên ko kiểm soát được
+                  // -> xử lý bằng cách đưa vào callback sau khi setState
                 }}
                 className="ml-1"
               >
@@ -211,6 +221,9 @@ class ToDoList extends Component {
             label="Task name"
             className="w-50"
           />
+          {/* // Trong add task thì đơn giản hơn là state Default render, 
+            // ko làm nhiệm vụ toggle control như update task  */}
+          {/* {this.state.disabled ? ( */}
           <Button
             onClick={() => {
               //Lấy thông tin người dùng nhập vào từ input
@@ -235,14 +248,51 @@ class ToDoList extends Component {
           >
             <i className="fa fa-plus"></i> Add task
           </Button>
-          <Button
-            onClick={() => {
-              this.props.dispatch(updateTaskAction(this.state.taskName));
-            }}
-            className="ml-2"
-          >
-            <i className="fa fa-upload"></i> Update task
-          </Button>
+          {/* ) : null} */}
+          {/* Đúng ra là để nút button kèm class disable vô nhưng dup code, xấu UI */}
+          {this.state.disabled ? (
+            <Button
+              disabled
+              onClick={() => {
+                // Có thể xử lý qua redux để reset field sau khi update thành rỗng
+                // Nhưng rườm rà, ở đây ta lưu trước biến taskName riêng ra để dispatch nó, ko dính với taskName trong state nữa ! -> giá trị dispatch trước và sau khác nhau
+                // Tuy nhiên id sẽ là id cũ -> tức là update rồi bị lưu id, ko update lần 2 được -> fix cách này bị lỗi logic ngầm
+                let { taskName } = this.state;
+                this.setState(
+                  {
+                    disabled: true,
+                    taskName: '',
+                  },
+                  () => {
+                    this.props.dispatch(updateTaskAction(taskName));
+                  }
+                );
+              }}
+              className="ml-2"
+            >
+              <i className="fa fa-upload"></i> Update task
+            </Button>
+          ) : (
+            <Button
+              onClick={() => {
+                // Có thể xử lý qua redux để reset field sau khi update thành rỗng
+                // Nhưng rườm rà, ở đây ta lưu trước biến taskName riêng ra để dispatch nó, ko dính với taskName trong state nữa ! -> giá trị dispatch trước và sau khác nhau
+                let { taskName } = this.state;
+                this.setState(
+                  {
+                    disabled: true,
+                    taskName: '',
+                  },
+                  () => {
+                    this.props.dispatch(updateTaskAction(taskName));
+                  }
+                );
+              }}
+              className="ml-2"
+            >
+              <i className="fa fa-upload"></i> Update task
+            </Button>
+          )}
           <hr />
           <Heading3>Task to do</Heading3>
           {/* verticalAlign trong css gốc để top sẵn, vì ko mu6o1n mod vào nên inline lại ở jsx */}
@@ -359,7 +409,11 @@ class ToDoList extends Component {
       });
     }
   }
+  // Ở đây nếu muốn reset Update hoặc lấy lại giá trị cũ sẽ ko được vì tính chất life cycle đang sử dụng vì cùng id
+  // Fix bằng cách để id trong lifeCycle thành -1
 }
+
+// 1 cách cuối nữa là chuyển state local vào redux luôn -> stateless
 
 const mapStateToProps = (state) => {
   const { themeToDoList, taskList, taskEdit } = state.ToDoListReducer;
