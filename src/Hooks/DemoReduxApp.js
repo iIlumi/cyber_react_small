@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { addCommentAction } from '../redux/actions/FakeBookActions';
 // redux -> snippet
 // import { connect, useDispatch, useSelector } from 'react-redux'
 // Ngoài ra redux còn cung cấp thêm 2 hooks khác
@@ -9,12 +10,18 @@ export default function DemoReduxApp(props) {
   // Lấy comments trong state của store vào biến comments
   let comments = useSelector((state) => state.FakeBookReducer.comments);
 
+  //Lấy hàm dispatch từ useDispatch => để gửi giá trị lên reducer (thay thế cho mapDispatchToProp hoặc this.props.dispatch)
+  let dispatch = useDispatch();
+
   //Lấy thông tin người dùng nhập vào
   let [userComment, setUserComment] = useState({
     name: '',
     content: '',
     avatar: '',
   });
+
+  console.log('re-render w new userComment:', userComment);
+  // Mỗi lần gõ -> useSetState mới -> re-render toàn bộ !! kèm log
 
   const handleChange = (e) => {
     let { value, name } = e.target;
@@ -26,10 +33,30 @@ export default function DemoReduxApp(props) {
     });
   };
 
-  const handleComment = (e) => {
+  // TODO khi tạo newObj temp chờ dispatch thì reset trường nhập lại,
+  // Tuy nhiên giữ nguyên avatar và name, chỉ reset comment
+  const handleSubmit = (e) => {
     e.preventDefault(); //Chăn browser reload
 
     console.log('click submit');
+    // Đặt us thay vì user để demo phân biệt
+    let usComment = {
+      ...userComment,
+      avatar: `https://i.pravatar.cc/150?u=${userComment.name}`,
+    };
+
+    setUserComment({
+      ...userComment,
+      content: '',
+    });
+    // ko log sau setState được vì async
+    // useEff , useRef, hoặc log lại sau khi re-render do useSetState
+
+    // let action = {
+    //     type:'add_comment',
+    //     userComment : usComment
+    // }
+    dispatch(addCommentAction(usComment));
   };
 
   return (
@@ -56,7 +83,7 @@ export default function DemoReduxApp(props) {
             );
           })}
         </div>
-        <form className="card-body" onSubmit={handleComment}>
+        <form className="card-body" onSubmit={handleSubmit}>
           <div className="form-group">
             <h4 className="card-title">Name</h4>
             <input

@@ -23,7 +23,14 @@ const FakeBookReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case ADD_COMMENT: {
       console.log('add comment in redux store');
-      return { ...state, ...payload };
+
+      // state.comments = [...state.comments,action.userComment];
+      // return { ...state };
+      // theo cách viết hiện tại và trong action creator: action.userComment = payload
+      return {
+        ...state,
+        comments: [...state.comments, payload],
+      };
     }
 
     default:
