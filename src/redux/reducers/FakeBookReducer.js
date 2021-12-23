@@ -1,6 +1,9 @@
 import { ADD_COMMENT } from '../types/FakeBookType';
 
 // rxreducx snippet
+
+// random image avatar -> KEYWORD
+// https://pravatar.cc/
 const initialState = {
   comments: [
     {
