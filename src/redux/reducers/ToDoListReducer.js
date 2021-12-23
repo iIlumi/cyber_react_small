@@ -1,5 +1,5 @@
-import { arrTheme } from '../../JSS_StyledComponent/Themes/ThemeManager';
 import { ToDoListDarkTheme } from '../../JSS_StyledComponent/Themes/ToDoListDarkTheme';
+import { arrTheme } from '../../JSS_StyledComponent/Themes/ThemeManager';
 import {
   ADD_TASK,
   CHANGE_THEME,
@@ -30,7 +30,7 @@ const ToDoListReducer = (state = stateDefault, action) => {
   const taskList = [...state.taskList];
   state = { ...state };
   state.taskList = taskList;
-  console.log('action:', action);
+  // console.log('action:', action);
 
   switch (action.type) {
     case ADD_TASK: {
@@ -66,7 +66,9 @@ const ToDoListReducer = (state = stateDefault, action) => {
 
     case CHANGE_THEME: {
       //Tìm theme dựa vào action.themeId được chọn
-      let themeEle = arrTheme.find((theme) => theme.id === action.themeId);
+      // action.themeId là string, theme.id là number
+      // -> parseInt, toString, Number, + operator
+      let themeEle = arrTheme.find((theme) => theme.id === + action.themeId);
       //   Find obj => nếu ko có thì undefined (falsy)
       if (themeEle) {
         console.log(themeEle);
@@ -146,3 +148,5 @@ const ToDoListReducer = (state = stateDefault, action) => {
 export default ToDoListReducer;
 
 // TODO -> chuyển done thành undone
+
+// 1 cách soilve đơn giản nhất vấn đề life cycle là taskEdit chuyển hẳn về localState luôn -> vì task_edit trên reducer ko có nhiều ý nghĩa

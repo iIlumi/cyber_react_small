@@ -224,6 +224,14 @@ export default class NavbarRoot extends Component {
                 >
                   To Do List
                 </NavLink>
+                <NavLink
+                  activeClassName="activeNavItem"
+                  activeStyle={activeLinkStyle}
+                  className="dropdown-item"
+                  to="/demoreduxapp"
+                >
+                  Demo Redux App
+                </NavLink>
 
                 
 

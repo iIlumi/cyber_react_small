@@ -20,6 +20,7 @@ import BaiTapBookingTicket from './BaiTapRedux/BaiTapBookingTicket/BaiTapBooking
 import ExContextModelList from './ExContextModelList/ExContextModelList';
 import UserProfile from './FormValidation/UserProfile/UserProfile';
 import ToDoList from './JSS_StyledComponent/BaiTapStyleComponent/ToDoList/ToDoList';
+import DemoReduxApp from './Hooks/DemoReduxApp';
 
 function App() {
   // Nếu gọi trực tiếp Prouct demo và console log prop thì có TH bị log 2 lần
@@ -50,6 +51,8 @@ function App() {
         {/* Khóa 3 */}
         <Route exact path="/formvalidate" component={UserProfile} />
         <Route exact path="/todolist" component={ToDoList} />
+        {/* Khóa 3 - Hooks */}
+        <Route exact path="/demoreduxapp" component={DemoReduxApp} />
 
         {/* demo */}
       </Switch>
