@@ -35,6 +35,7 @@ const BaiTapGameBauCuaReducer = (state = initialState, { type, ...action }) => {
         return state;
       }
       // return state ngay lập tức sẽ cản các module liên quan state đó reload
+
       if (action.tangGiam) {
         if (state.tongDiem > 0) {
           danhSachCuocUpdate[index].diemCuoc += 100;
@@ -44,6 +45,7 @@ const BaiTapGameBauCuaReducer = (state = initialState, { type, ...action }) => {
           return state;
         }
       }
+
       if (!action.tangGiam) {
         if (danhSachCuocUpdate[index].diemCuoc > 0) {
           danhSachCuocUpdate[index].diemCuoc -= 100;
@@ -58,6 +60,27 @@ const BaiTapGameBauCuaReducer = (state = initialState, { type, ...action }) => {
 
       return { ...state };
     }
+
+    case 'PLAY_GAME_BAU_CUA': {
+      // console.log(action);
+      const mangXucXacNgauNhien = [];
+
+      // https://www.w3schools.com/js/js_random.asp
+      // JavaScript Random Integers
+
+      for (let i = 0; i < 3; i++) {
+        //Tạo ra 1 số ngẫu nhiên từ 0 -> 5
+        let soNgauNhien = Math.floor(Math.random() * 6);
+        const { diemCuoc, ...xucXacNgauNhien } =
+          state.danhSachCuoc[soNgauNhien];
+        mangXucXacNgauNhien.push(xucXacNgauNhien);
+      }
+      //Cập lại mảng xúc xắc state.mangXucXac = mangXucXacNgauNhien
+      state.mangXucXac = mangXucXacNgauNhien;
+      console.log('mangXXNN', state.mangXucXac);
+      return { ...state };
+    }
+
     default:
       return state;
   }

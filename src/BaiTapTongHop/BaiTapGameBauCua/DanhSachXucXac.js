@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import DemoDice from './DemoDice';
 import XucXac from './XucXac';
 
@@ -7,6 +7,9 @@ export default function DanhSachXucXac() {
   const { mangXucXac } = useSelector((state) => state.BaiTapGameBauCuaReducer);
   // Ở đây là sẽ ko loop render mà sẽ gán trực tiếp vào layout luôn
   // Vì layout game ko phải dạng tuần tự cùng cấu trúc như bt
+
+  const dispatch = useDispatch();
+
   return (
     <div className="mt-5 ml-5">
       <div
@@ -28,7 +31,15 @@ export default function DanhSachXucXac() {
         </div>
       </div>
       <div style={{ marginLeft: '20%', marginTop: '5%' }}>
-        <button className="btn btn-success p2" style={{ fontSize: '25px' }}>
+        <button
+          onClick={() => {
+            dispatch({
+              type: 'PLAY_GAME_BAU_CUA',
+            });
+          }}
+          className="btn btn-success p2"
+          style={{ fontSize: '25px' }}
+        >
           Xốc
         </button>
       </div>
