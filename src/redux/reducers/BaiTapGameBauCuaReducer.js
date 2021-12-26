@@ -78,6 +78,16 @@ const BaiTapGameBauCuaReducer = (state = initialState, { type, ...action }) => {
       //Cập lại mảng xúc xắc state.mangXucXac = mangXucXacNgauNhien
       state.mangXucXac = mangXucXacNgauNhien;
       console.log('mangXXNN', state.mangXucXac);
+
+      //Xử lý tăng điểm thưởng
+      mangXucXacNgauNhien.forEach((xucXacNN, index) => {
+        let indexDSCuoc = state.danhSachCuoc.findIndex(
+          (qc) => qc.ma === xucXacNN.ma
+        );
+        if (index !== -1) {
+          state.tongDiem += state.danhSachCuoc[indexDSCuoc].diemCuoc;
+        }
+      });
       return { ...state };
     }
 
