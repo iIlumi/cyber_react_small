@@ -21,6 +21,7 @@ import ExContextModelList from './ExContextModelList/ExContextModelList';
 import UserProfile from './FormValidation/UserProfile/UserProfile';
 import ToDoList from './JSS_StyledComponent/BaiTapStyleComponent/ToDoList/ToDoList';
 import DemoReduxApp from './Hooks/DemoReduxApp';
+import BaiTapGameBauCua from './BaiTapTongHop/BaiTapGameBauCua/BaiTapGameBauCua';
 
 function App() {
   // Nếu gọi trực tiếp Prouct demo và console log prop thì có TH bị log 2 lần
@@ -53,6 +54,7 @@ function App() {
         <Route exact path="/todolist" component={ToDoList} />
         {/* Khóa 3 - Hooks */}
         <Route exact path="/demoreduxapp" component={DemoReduxApp} />
+        <Route exact path="/baucua" component={BaiTapGameBauCua} />
 
         {/* demo */}
       </Switch>

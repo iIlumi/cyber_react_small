@@ -232,6 +232,14 @@ export default class NavbarRoot extends Component {
                 >
                   Demo Redux App
                 </NavLink>
+                <NavLink
+                  activeClassName="activeNavItem"
+                  activeStyle={activeLinkStyle}
+                  className="dropdown-item"
+                  to="/baucua"
+                >
+                  Bầu Cua
+                </NavLink>
 
                 
 

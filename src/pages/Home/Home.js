@@ -66,6 +66,9 @@ export default class Home extends Component {
         <NavLink className="d-block" to="/demoreduxapp">
           Demo Redux App
         </NavLink>
+        <NavLink className="d-block" to="/baucua">
+          Bầu Cua
+        </NavLink>
 
         {/* demo */}
       </div>
