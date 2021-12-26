@@ -6,6 +6,7 @@ import DanhSachXucXac from './DanhSachXucXac';
 import Helmet from 'react-helmet';
 
 export default function BaiTapGameBauCua(props) {
+  console.log('game bầu cua loaded');
   return (
     <div
       id="BaiTapGameBauCua"

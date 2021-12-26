@@ -11,6 +11,8 @@ export default function DanhSachCuoc(props) {
   );
   // console.log(danhSachCuoc);
 
+  // console.log('danh sách cược loaded');
+
   const renderDanhSachCuoc = () => {
     return danhSachCuoc.map((item, index) => {
       return (

@@ -35,16 +35,16 @@ export default function XucXac(props) {
             alt="right"
           />
           <img
-            className="ml-3 cube__face front"
+            className="ml-3 cube__face top"
             style={{ width: 50 }}
             src="./img/BaiTapGameBauCua/tom.png"
-            alt="front"
+            alt="top"
           />
           <img
-            className="ml-3 cube__face front"
+            className="ml-3 cube__face bottom"
             style={{ width: 50 }}
             src="./img/BaiTapGameBauCua/nai.png"
-            alt="front"
+            alt="bottom"
           />
         </div>
       </div>

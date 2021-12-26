@@ -15,17 +15,48 @@ const initialState = {
     { ma: 'cua', hinhAnh: './img/BaiTapGameBauCua/cua.png' },
     { ma: 'tom', hinhAnh: './img/BaiTapGameBauCua/tom.png' },
   ],
+  thongBao: '',
 };
 
 // invalid syntax: export a default and declare a variable at the same time
 // ESLint warn no anonym export
 // https://stackoverflow.com/questions/34676984/cannot-export-const-arrow-function
-const BaiTapGameBauCuaReducer = (state = initialState, { type, payload }) => {
+const BaiTapGameBauCuaReducer = (state = initialState, { type, ...action }) => {
   switch (type) {
     case 'DAT_CUOC_BAU_CUA': {
       // console.log('action',action)
+      const danhSachCuocUpdate = [...state.danhSachCuoc];
+      const index = danhSachCuocUpdate.findIndex(
+        (qc) => qc.ma === action.quanCuoc.ma
+      );
 
-      return { ...state, ...payload };
+      if (index === -1) {
+        console.log('Đặt cược lỗi');
+        return state;
+      }
+      // return state ngay lập tức sẽ cản các module liên quan state đó reload
+      if (action.tangGiam) {
+        if (state.tongDiem > 0) {
+          danhSachCuocUpdate[index].diemCuoc += 100;
+          state.tongDiem -= 100;
+        } else {
+          console.log('Hết điểm đặt tiếp');
+          return state;
+        }
+      }
+      if (!action.tangGiam) {
+        if (danhSachCuocUpdate[index].diemCuoc > 0) {
+          danhSachCuocUpdate[index].diemCuoc -= 100;
+          state.tongDiem += 100;
+        } else {
+          console.log('Quân cược đã hết điểm');
+          return state;
+        }
+      }
+
+      state.danhSachCuoc = danhSachCuocUpdate;
+
+      return { ...state };
     }
     default:
       return state;
