@@ -1,3 +1,5 @@
+// rxreducer - snippet
+
 const initialState = {
   danhSachCuoc: [
     { ma: 'ga', hinhAnh: './img/BaiTapGameBauCua/ga.png', diemCuoc: 0 },
@@ -15,7 +17,10 @@ const initialState = {
   ],
 };
 
-export default (state = initialState, { type, payload }) => {
+// invalid syntax: export a default and declare a variable at the same time
+// ESLint warn no anonym export
+// https://stackoverflow.com/questions/34676984/cannot-export-const-arrow-function
+const BaiTapGameBauCuaReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case 'DAT_CUOC_BAU_CUA': {
       // console.log('action',action)
@@ -26,3 +31,5 @@ export default (state = initialState, { type, payload }) => {
       return state;
   }
 };
+
+export default BaiTapGameBauCuaReducer;

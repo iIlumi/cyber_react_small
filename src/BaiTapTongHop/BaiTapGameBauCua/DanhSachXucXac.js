@@ -1,8 +1,12 @@
 import React from 'react';
-import { head } from 'lodash';
+import { useSelector } from 'react-redux';
 import XucXac from './XucXac';
 
 export default function DanhSachXucXac() {
+  const { mangXucXac } = useSelector((state) => state.BaiTapGameBauCuaReducer);
+  // Ở đây là sẽ ko loop render mà sẽ gán trực tiếp vào layout luôn
+  // Vì layout game ko phải dạng tu6a2n tự cùng cấu trúc như bt
+  
   return (
     <div className="mt-5 ml-5">
       <div
@@ -11,13 +15,13 @@ export default function DanhSachXucXac() {
       >
         <div className="row">
           <div className="col-12 text-center" style={{ marginTop: '75px' }}>
-            <XucXac />
+            <XucXac xucXacItem={mangXucXac[0]} />
           </div>
           <div className="col-6 text-right mt-5">
-            <XucXac />
+            <XucXac xucXacItem={mangXucXac[1]} />
           </div>
           <div className="col-6 mt-5">
-            <XucXac />
+            <XucXac xucXacItem={mangXucXac[2]} />
           </div>
         </div>
       </div>

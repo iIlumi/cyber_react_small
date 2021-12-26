@@ -34,7 +34,7 @@ const FakeBookReducer = (state = initialState, { type, payload }) => {
     }
 
     default:
-      console.log('default case in redux store');
+      // console.log('default case in redux store');
       return state;
   }
 };

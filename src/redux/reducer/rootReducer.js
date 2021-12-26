@@ -6,6 +6,7 @@ import BaiTapGameXucXacReducer from './BaiTapXucXacReducer';
 // thư mục reducers là các proj nhỏ trong Khóa 3 - ReactJS
 import ToDoListReducer from '../reducers/ToDoListReducer';
 import FakeBookReducer from '../reducers/FakeBookReducer';
+import BaiTapGameBauCuaReducer from '../reducers/BaiTapGameBauCuaReducer';
 
 // store tổng của ứng dụng
 const rootReducer = combineReducers({
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   // Các reducer trong khóa 3, ko rename lại thư mục để dễ compare
   ToDoListReducer,
   FakeBookReducer,
+  BaiTapGameBauCuaReducer,
 });
 
 export default rootReducer;
