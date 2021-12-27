@@ -6,7 +6,19 @@ import XucXac from './XucXac';
 import XucXacSource from './XucXacSource';
 
 export default function DanhSachXucXac() {
-  const { mangXucXac } = useSelector((state) => state.BaiTapGameBauCuaReducer);
+  // const { mangXucXac } = useSelector((state) => state.BaiTapGameBauCuaReducer);
+  // ?? vì BaiTapGameBauCuaReducer thật sự là obj mới nhưng mangXucXac là obj deep bên trong, vấn đề tham chiếu phức tạp
+  // An toàn thì ko nên destruc kiểu vậy
+  // Viết theo cách trên khi destruct là luôn tạo 1 obj mới khác với state trên store
+  // -> component sẽ luôn luôn render lại bất chấp, ko kiểm soát được liefcycle nữa
+
+  // Viết cách dưới sẽ đảm bảo obj sinh ra cùng tham chiếu vùng nhớ với state trên store, chỉ bị thay đổi khi store deepcopy mangXucXac
+  // XucXac item con sẽ render animation đúng mong đợi
+  const mangXucXac = useSelector(
+    (state) => state.BaiTapGameBauCuaReducer.mangXucXac
+  );
+
+  // ======================================================================
   // Ở đây là sẽ ko loop render mà sẽ gán trực tiếp vào layout luôn
   // Vì layout game ko phải dạng tuần tự cùng cấu trúc như bt
 

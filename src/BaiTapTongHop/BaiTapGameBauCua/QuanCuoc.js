@@ -119,5 +119,9 @@ export default function QuanCuoc(props) {
  * -> ý tưởng là setState nhưng scale thì ko liên quan nhưng khi đó lại ko re-render
  * Có copy lại demo trên web -> playground qua file đó test
  * https://react-spring.io/basics#emulating-css-keyframes
+ * 
+ * 
+  https://stackoverflow.com/questions/59101839/how-to-re-animate-react-spring-animation-using-hooks-on-button-click
+  https://codesandbox.io/s/upbeat-kilby-ez7jy
  */
 

@@ -20,6 +20,7 @@ export default function XucXacSource(props) {
   set.start({ xyz: [1800, 1800, 1800] });
   set.stop();
 
+  console.log('xuc xac source render');
 
   return (
     <Fragment>
@@ -34,34 +35,43 @@ export default function XucXacSource(props) {
           }}
         >
           <div className="cube__face front">
-            <img alt ='xucXacSource' src={xucXacItem.hinhAnh} style={{ width: '100%' }} />
+            <img
+              alt="xucXacSource"
+              src={xucXacItem.hinhAnh}
+              style={{ width: '100%' }}
+            />
           </div>
           <div className="cube__face back">
-            <img alt ='xucXacSource'
+            <img
+              alt="xucXacSource"
               src="./img/BaiTapGameBauCua/cua.png"
               style={{ width: '100%' }}
             />
           </div>
           <div className="cube__face right">
-            <img alt ='xucXacSource'
+            <img
+              alt="xucXacSource"
               src="./img/BaiTapGameBauCua/tom.png"
               style={{ width: '100%' }}
             />
           </div>
           <div className="cube__face left">
-            <img alt ='xucXacSource'
+            <img
+              alt="xucXacSource"
               src="./img/BaiTapGameBauCua/ca.png"
               style={{ width: '100%' }}
             />
           </div>
           <div className="cube__face top">
-            <img alt ='xucXacSource'
+            <img
+              alt="xucXacSource"
               src="./img/BaiTapGameBauCua/ga.png"
               style={{ width: '100%' }}
             />
           </div>
           <div className="cube__face bottom">
-            <img alt ='xucXacSource'
+            <img
+              alt="xucXacSource"
               src="./img/BaiTapGameBauCua/nai.png"
               style={{ width: '100%' }}
             />

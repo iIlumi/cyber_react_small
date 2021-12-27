@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSpring, animated } from 'react-spring';
 
 export default function XucXac(props) {
@@ -7,7 +7,7 @@ export default function XucXac(props) {
   // =======================================
 
   // const [propsDice, set] = useSpring(() => {
-  //   console.log('propsDice:')
+  //   console.log('propsDice:');
   //   return {
   //     to: {
   //       xyz: [1800, 1800, 1800],
@@ -18,18 +18,20 @@ export default function XucXac(props) {
   //     config: {
   //       duration: 1000,
   //     },
+  //     reset: true,
   //   };
   // });
 
+
   // set.start({
   //   to: {
-  //     xyz: [0, 0, 0],
+  //     xyz: [1800, 1800, 1800],
   //   },
   // });
   //=======================
   // 1800/360 = 5 vòng
   //   Vấn đề set bị tương tự nút click
-  
+
   // =======================================
   // https://react-spring.io/hooks/use-spring#either-overwrite-values-to-change-the-animation
   // Temp fix for click another animation
@@ -57,7 +59,7 @@ export default function XucXac(props) {
    * -> Thiết lập state để ko kéo toàn ứng dụng render ?
    * Hoặc dùng memo ?
    */
-  console.log('xuc xac render')
+  console.log('xuc xac render');
 
   return (
     // Fragment là dạng thẻ rỗng, có thể viết tắt như dưới
@@ -135,4 +137,7 @@ export default function XucXac(props) {
   Xúc xác có 5 mặt thì mặt front sẽ do mangXucXac random
   5 mặt còn lại có thể set cứng đại và chấp nhận có TH bị trùng
   Hoặc chịu khó chỉnh thuật toán để xử lý, ở đây set cứng luôn
+
+  https://stackoverflow.com/questions/59101839/how-to-re-animate-react-spring-animation-using-hooks-on-button-click
+  https://codesandbox.io/s/upbeat-kilby-ez7jy
  */
