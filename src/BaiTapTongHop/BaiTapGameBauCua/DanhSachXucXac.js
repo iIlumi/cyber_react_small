@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import DemoDice from './DemoDice';
+import DemoSpringButton from './DemoSpringButton';
 import XucXac from './XucXac';
 
 export default function DanhSachXucXac() {
@@ -43,6 +44,8 @@ export default function DanhSachXucXac() {
           Xốc
         </button>
       </div>
+      <hr />
+      <DemoSpringButton />
       <hr />
       <DemoDice />
     </div>
