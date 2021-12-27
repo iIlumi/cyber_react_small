@@ -32,7 +32,15 @@ export default function DemoSpringButton() {
  * https://codesandbox.io/s/github/pmndrs/react-spring/tree/master/demo/src/sandboxes/css-keyframes?file=/src/App.tsx:640-655
  * https://react-spring.io/hooks/use-spring
  * -> có thể lên trang đó test cũng ok
- *
+ * 
+ * Cách viết hiện tại đang áp dụng cách viết shorthand cho props
+ * https://react-spring.io/basics#shorthand-style-props
+ * -> ko phải convert về string như v8 ở link docs dưới (demo cùng version)
+ * 
+ * https://react-spring.io/basics#emulating-css-keyframes
+ * docs v9 nhưng demo kiểu cũ v8 
+ * tuy nhiên viết lại trên sandbox thì ko thấy khác biệt
+ * 
  * 
  * Việc interpolate là bắt buộc vì phải truyền giá trị động vào css
  * Spring ko phải là magic, vẫn phải define dạng gần với css
@@ -50,7 +58,6 @@ export default function DemoSpringButton() {
  * useSpring hiện tại cũng ko control thêm bất cứ yếu tố nào
  * Thử reset, reverse tinh chỉnh qua các thông số chạy:
  *
- * 
  * 
  * https://react-spring.io/common/props
  * https://react-spring.io/basics

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import DemoDice from './DemoDice';
 import DemoSpringButton from './DemoSpringButton';
 import XucXac from './XucXac';
+import XucXacSource from './XucXacSource';
 
 export default function DanhSachXucXac() {
   const { mangXucXac } = useSelector((state) => state.BaiTapGameBauCuaReducer);
@@ -10,7 +11,7 @@ export default function DanhSachXucXac() {
   // Vì layout game ko phải dạng tuần tự cùng cấu trúc như bt
 
   const dispatch = useDispatch();
-
+  console.log('danh sách xúc xắc render');
   return (
     <div className="mt-5 ml-5">
       <div
@@ -24,7 +25,7 @@ export default function DanhSachXucXac() {
         </div>
         <div className="row" style={{ marginTop: -20 }}>
           <div className="col-4 text-right">
-            <XucXac xucXacItem={mangXucXac[1]} />
+            <XucXacSource xucXacItem={mangXucXac[1]} />
           </div>
           <div className="col-4 text-right">
             <XucXac xucXacItem={mangXucXac[2]} />

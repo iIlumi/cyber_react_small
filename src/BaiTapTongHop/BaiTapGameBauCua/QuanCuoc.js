@@ -43,6 +43,8 @@ export default function QuanCuoc(props) {
     x: stateDecrease ? 1 : 0,
   });
 
+  console.log('quan cuoc render')
+  
   return (
     <div className="mt-3 ">
       <img src={hinhAnh} style={{ width: 250 }} alt={ma} />
@@ -116,5 +118,6 @@ export default function QuanCuoc(props) {
  * Có thể tinh chỉnh theo demo nhưng vẫn là fake
  * -> ý tưởng là setState nhưng scale thì ko liên quan nhưng khi đó lại ko re-render
  * Có copy lại demo trên web -> playground qua file đó test
+ * https://react-spring.io/basics#emulating-css-keyframes
  */
 
